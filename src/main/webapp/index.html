@@ -1,62 +1,12 @@
 <!DOCTYPE html>
 <html>
 <title>Dynamic Example</title>
-	<body>
-	<form id="loginform">
-  <input type="text" name="username" />
-  <input type="password" name="password" />
+<body>
+<label>Hello World!</label>
 
-  <input type="button" value="login" id="login" />
-</form>
-	
-	 	<form action="CalculatorServlet.do" method="get">
-			<div>
-				<input type="number" name="getal1" />
-				<input type="number" name="getal2" />
-				<input type="submit" value="Optellen" name=actie />
-				<input type="submit" value="Aftrekken" name=actie />
-				<input type="submit" value="Delen" name=actie />
-				<input type="submit" value="Vermngvldgn" name=actie />
-				<br>
-			</div>
-			
-		</form>
-		<div>
-			<a href="test.html">Klik hier (console.log van value in textarea) </a>
-				<br>
-				<h3>
-				<a href="rekenmachine.html">klik hier voor onze nieuwe verbeterde rekenmachine!</a>
-				</h3>
-				<br>
-				<a href="weer.html">Het weer vandaag! </a>
-				<br>
-				<a href="keyupstorage.html">Key localStorage </a>
-				<br>
-				<a href="beheerlanden.html">Beheer landen!</a>
-				<br>
-				<a href="registration.html">Maak een account!</a>
-		</div>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script>
-		$("#login").click(function(event) {
-			  var data = $("#loginform").serialize();
 
-			  $.post("restservices/authentication", data, function(response) {
-			    window.sessionStorage.setItem("sessionToken", response);
-			  }).fail(function(jqXHR, textStatus, errorThrown) {
-			    console.log(textStatus);
-			    console.log(errorThrown);
-			  });
-			});
-
-	//	var person{
-	//			figures:{},
-	//			},
-	//	addFigure : function(coure,figure){
-	//		this.figures[course]= figure;
-	//	};
+	<script>
 		
-		
-		</script>
-	</body>
+	</script>
+</body>
 </html>
