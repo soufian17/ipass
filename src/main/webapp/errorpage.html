@@ -1,0 +1,27 @@
+<html>
+<head>
+<style>
+.label{
+font-size:200px;
+color:red;
+}
+</style>
+</head>
+<body>
+<label class="label">SOMETHING WENT WRONG!!!</label>
+</body>
+<script>
+function errormessage(value){
+	alert("IT WENT WRONG!"+value);
+}
+function errormessages(){
+	errormessage("");
+	errormessage(",OMG WHAT DO WE DO!!");
+	errormessage("WELL BYE!");
+
+
+}
+document.addEventListener("onmouseover",errormessages())
+
+</script>
+</html>
