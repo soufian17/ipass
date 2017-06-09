@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<title>Klantbeheer</title>
+<head>
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+</head>
+<body>
+<h1>Klantbeheer</h1>
+<div class="div">
+<form  id="klantform">
+ <label >Voornaam:</label>
+<input class="text" type="text" placeholder="Voornaam" id="voornaam" name="voornaam" /> 
+ <br></br>
+ <label >Achternaam:</label>
+<input class="text" type="text" placeholder="Achternaam" id="achternaam" name="achternaam" /> 
+ <br></br>
+ <label >Bankrekeningnummer:</label>
+<input  class="text" type="text" placeholder="Bankrekeningnummer" id="bankrekeningnummer" name="bankrekeningnummer" /> 
+ <br></br>
+ <label >telefoonnummer:</label>
+<input  class="text" type="text" placeholder="Telefoonnummer" id="telefoonnummer" name="telefoonnummer" /> 
+ <br></br>
+ <label >E-mail:</label>
+<input  class="text" type="text" placeholder="E-mail" id="email" name="email" /> 
+ <br></br>
+ <label >Woonplaats:</label>
+<input  class="text" type="text" placeholder="Woonplaats" id="woonplaats" name="woonplaats" /> 
+ <br></br>
+  <label >Adres:</label>
+<input  class="text" type="text" placeholder="Adres" id="adres" name="adres" /> 
+ <br></br>
+
+
+ <input class="btn" type="button" id="mybutton" value="Voer door" />
+</form>
+ <label >Locatie:</label>
+<select id="selection" name="locatie" form="klantform">
+</select>
+ <label >Abonnement:</label>
+ <select id="selectionab" name="abonnementnaam" form="klantform">
+</select>
+</div>
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+	<script>
+	function loadLocaties(){
+		$.ajax({
+            url: "restservices/locatie/all",
+            method: "GET",
+            success: function (data) {
+            	$.each(data,function(key,value){
+            		$("#selection").append("<option value='"+value.adres+"-"+value.plaatsnaam+"'>"+value.adres+"	-	"+value.plaatsnaam+"</option>");
+            	})
+			}
+        });
+	}
+	function loadAbonnementen(){
+		$.ajax({
+            url: "restservices/abonnement/all",
+            method: "GET",
+            success: function (data) {
+            	$.each(data,function(key,value){
+            		$("#selectionab").append("<option value='"+value.naam+"'>"+value.naam+"	-	"+value.prijs+"</option>");
+            	})
+			}
+        });
+	}
+	loadAbonnementen();
+	loadLocaties();
+	function Inschrijven(){
+		console.log("test");
+		$.ajax({
+            url: "restservices/inschrijvingen/add",
+            data: $("#klantform").serialize(), 
+            method: "POST",
+            success: function (data) {
+            	alert(data);
+            	window.location.href = "index.html";
+			}
+        });
+	}
+	$("#mybutton").click(Inschrijven);
+</script>
+</body>
+</html>

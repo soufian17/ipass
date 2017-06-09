@@ -23,5 +23,15 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/soufi/.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.archivename" value="javax.json-1.0.4.jar"/>
+			<attribute name="maven.groupId" value="org.glassfish"/>
+			<attribute name="maven.artifactId" value="javax.json"/>
+			<attribute name="maven.version" value="1.0.4"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
