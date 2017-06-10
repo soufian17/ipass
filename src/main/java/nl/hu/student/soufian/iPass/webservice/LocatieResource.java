@@ -26,6 +26,7 @@ public class LocatieResource {
 			JsonObjectBuilder JOB = Json.createObjectBuilder();
 			JOB.add("adres",		locatie.getAdres_());
 			JOB.add("plaatsnaam",locatie.getPlaatsnaam_());
+			JOB.add("locatieid",locatie.getLocatieID());
 			JsonArrayBuilder.add(JOB);
 		}
 		String jsonStr = JsonArrayBuilder.build().toString();

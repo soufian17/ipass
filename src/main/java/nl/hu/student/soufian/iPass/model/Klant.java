@@ -53,4 +53,18 @@ public class Klant {
 	public String getAdres_() {
 		return adres_;
 	}
+	public boolean equals(Object obj){
+		if (this == obj){
+			return true;
+		}if (obj  instanceof Abonnement){
+			Klant var = (Klant)obj;
+			return this.Voornaam_.equals(var.Voornaam_) &&
+					this.Achternaam_.equals(var.Achternaam_)&&
+					this.bankrekeningnummer_.equals(var.bankrekeningnummer_)&&
+					this.mail_.equals(var.mail_)&&
+					this.adres_.equals(var.adres_)&&
+					this.id_==(var.id_);
+		}
+		return false;
+	}
 }

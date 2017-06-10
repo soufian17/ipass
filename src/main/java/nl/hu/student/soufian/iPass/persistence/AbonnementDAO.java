@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import nl.hu.student.soufian.iPass.model.Abonnement;
 import nl.hu.student.soufian.iPass.persistence.BaseDAO;
@@ -44,7 +45,7 @@ public class AbonnementDAO extends BaseDAO{
 			return null;
 		}
 	}
-	 
+
 	//haal een abbonement weg met de naam die je meegeeft
 	public boolean removeAbonnement(String naam){
 		try(Connection con = super.getConnection()){
@@ -69,6 +70,29 @@ public class AbonnementDAO extends BaseDAO{
 		ArrayList<Abonnement> alleabbo= new ArrayList<Abonnement>();
 		String queryText = "SELECT typeabonnement,prijs FROM abonnement";
 		ResultSet rs = stmt.executeQuery(queryText);
+		String naam;
+		double prijs;
+		while (rs.next()) {
+			naam = 	rs.getString("typeabonnement");
+			prijs = rs.getDouble("prijs");
+			alleabbo.add(new Abonnement(naam,prijs));
+		}
+		rs.close();
+		stmt.close();
+		return alleabbo;
+		}catch(Exception e){
+			return null;
+		}
+	}
+	public List<Abonnement> getRestAbbonement(String abbonementnaam) {
+		try(Connection con = super.getConnection()){
+			
+		Statement stmt = con.createStatement();
+		ArrayList<Abonnement> alleabbo= new ArrayList<Abonnement>();
+		String queryText = "SELECT typeabonnement,prijs FROM abonnement where typeabonnement !=?";
+		PreparedStatement ps = con.prepareStatement(queryText);
+		ps.setString(1, abbonementnaam);
+		ResultSet rs = ps.executeQuery();
 		String naam;
 		double prijs;
 		while (rs.next()) {

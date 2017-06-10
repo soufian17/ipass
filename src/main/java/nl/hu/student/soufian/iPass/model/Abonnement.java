@@ -1,5 +1,7 @@
 package nl.hu.student.soufian.iPass.model;
 
+
+
 public class Abonnement {
 	private String abbonementnaam_;
 	private double prijs_;
@@ -14,5 +16,15 @@ public class Abonnement {
 	}
 	public double getPrijs() {
 		return prijs_;
+	}
+	public boolean equals(Object obj){
+		if (this == obj){
+			return true;
+		}if (obj  instanceof Abonnement){
+			Abonnement var = (Abonnement)obj;
+			return this.abbonementnaam_.equals(var.abbonementnaam_) &&
+					this.prijs_==var.prijs_;
+		}
+		return false;
 	}
 }

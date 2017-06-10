@@ -47,9 +47,7 @@ public class KlantDAO extends BaseDAO{
 		return true;
 		}catch(Exception ex){
 			return false;
-		}
-
-		
+		}	
 	}
 
 
@@ -133,7 +131,50 @@ public class KlantDAO extends BaseDAO{
 			return null;
 		}
 	}
+	public Klant findKlant(int id) {
+		try(Connection con = super.getConnection()){
+			String query = "select * from klant  id=?";
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			String voornaam = rs.getString("voornaam");
+			String achternaam = rs.getString("achternaam");
+			int ID = rs.getInt("ID");
+			String bankrek = rs.getString("bankrekening");
+			String telefoonnummer = rs.getString("telefoonnummer");
+			String woonplaats = rs.getString("woonplaats");
+			String adres = rs.getString("adresklant");
+			String mail = rs.getString("email");
+			rs.close();
+			ps.close();
+			Klant klant = new Klant(voornaam, achternaam, ID, bankrek, telefoonnummer, woonplaats, adres, mail);
+			return klant;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 
+
+	public boolean updateKlant(int id, String voornaam, String achternaam, String bankrek, String telefoonnummer,String mail, String woonplaats, String adres) {
+		try (Connection con = super.getConnection()){
+			String Querry = "update klant set voornaam=?, achternaam=?, adresklant=?,woonplaats=?,bankrekeningnummer=?,telefoonnummer=?,email=? where id = ?";
+			PreparedStatement ps = con.prepareStatement(Querry);
+			ps.setString(1, voornaam);
+			ps.setString(2, achternaam);
+			ps.setString(3, adres);
+			ps.setString(4, woonplaats);
+			ps.setString(5, bankrek);
+			ps.setString(6, telefoonnummer);
+			ps.setString(7, mail);
+			ps.setInt	(8, id);
+			ps.executeUpdate();
+		return true;
+		}catch(Exception ex){
+			return false;
+		}	
+	}
 
 	
 }

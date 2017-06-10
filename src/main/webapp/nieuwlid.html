@@ -3,9 +3,11 @@
 <title>Klantbeheer</title>
 <head>
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
-<h1>Klantbeheer</h1>
+<h1><i onclick="goBack()" class="fa fa-angle-double-left fa-border fa-pull-right ic"></i> Klantbeheer </h1>
 <div class="div">
 <form  id="klantform">
  <label >Voornaam:</label>
@@ -49,7 +51,7 @@
             method: "GET",
             success: function (data) {
             	$.each(data,function(key,value){
-            		$("#selection").append("<option value='"+value.adres+"-"+value.plaatsnaam+"'>"+value.adres+"	-	"+value.plaatsnaam+"</option>");
+            		$("#selection").append("<option value='"+value.locatieid+"'>"+value.adres+" - "+value.plaatsnaam+"</option>");
             	})
 			}
         });
@@ -60,7 +62,7 @@
             method: "GET",
             success: function (data) {
             	$.each(data,function(key,value){
-            		$("#selectionab").append("<option value='"+value.naam+"'>"+value.naam+"	-	"+value.prijs+"</option>");
+            		$("#selectionab").append("<option value='"+value.naam+"'>"+value.naam+" - "+value.prijs+"</option>");
             	})
 			}
         });
@@ -68,7 +70,7 @@
 	loadAbonnementen();
 	loadLocaties();
 	function Inschrijven(){
-		console.log("test");
+		console.log($("#klantform").serialize());
 		$.ajax({
             url: "restservices/inschrijvingen/add",
             data: $("#klantform").serialize(), 
@@ -80,6 +82,9 @@
         });
 	}
 	$("#mybutton").click(Inschrijven);
+	 function goBack() {
+		    window.history.back()
+		}
 </script>
 </body>
 </html>

@@ -21,4 +21,15 @@ public class Inschrijving {
 	public Locatie getLocatie() {
 		return locatie_;
 	}
+	public boolean equals(Object obj){
+		if (this == obj){
+			return true;
+		}if (obj  instanceof Inschrijving){
+			Inschrijving var = (Inschrijving)obj;
+			return this.abbonement_.equals(var.abbonement_) &&
+					this.locatie_.equals(var.abbonement_)&&
+					this.klant_.equals(var.klant_);
+		}
+		return false;
+	}
 }

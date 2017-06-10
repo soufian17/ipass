@@ -3,9 +3,47 @@
 <title>Klantbeheer</title>
 <head>
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<h1>Klantbeheer</h1>
+<h1><i onclick="goBack()" class="fa fa-angle-double-left fa-border fa-pull-right ic"></i> Klantbeheer </h1>
+<div class="table-title">
+<h3>Overzicht Alle Klanten</h3>
+</div>
+  <table  id="leden" class="table-fill">
 
+  </table>
+
+ 
+ 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+ <script>
+ 
+ function loadLeden(){
+     $.ajax({
+         url: "restservices/inschrijvingen/all",
+         method: "GET",
+         success: function (data) {
+         	$("#leden").html("<tr>	<th>ID</th> <th>Voornaam</th> <th>Achternaam</th> <th>Abonnement</th> <th>Locatie</th> <th>Verwijderen</th> </tr>");
+         	$.each(data,function(key,value){
+         		$('#leden > tbody:last-child').append('<tr id="'+value.id+'" > <td>'+value.id+"</td> <td>"+value.voornaam+"</td> <td>"+value.achternaam+"</td> <td>"+value.abonnement+"</td><td>"+value.locatie+'</td><td class="box2"><i onclick=verwijderLid("'+value.id+'"'+") class='fa fa-remove' style='font-size:48px;color:red'></i></td> </tr>");
+         	})
+			}
+     })
+ };
+ loadLeden();
+ function verwijderLid(verwijderId){
+     $.ajax({
+         url: "restservices/inschrijvingen/verwijder/"+verwijderId,
+         method: "DELETE",
+         success: function (data) {
+        	 alert(data);
+			}
+     })
+ };
+function goBack() {
+    window.history.back()
+};
+</script>
 </body>
 </html>
