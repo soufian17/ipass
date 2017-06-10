@@ -15,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
@@ -166,6 +167,94 @@ public class InschrijvingResource {
 			return "Er is een error opgetreden.\n Neem contact op met uw magnefieke ICT'er.\n Klant is geüpdatet";
 		}
 	}
+	@GET
+	@Path("/filter/{filter}/{filterwaarde}")
+	@Produces("application/json")
+	public String getFilteredResponse(
+			@PathParam("filter")String filter,
+			@PathParam("filterwaarde")String filterwaarde
+			){
 
+		InschrijvingDAO idao = new InschrijvingDAO();
+		if(filter.equals("achternaam")){
+			List<Inschrijving> alleleden = idao.getFilteredAchternaam(filterwaarde);
+			JsonArrayBuilder JsonArrayBuilder = Json.createArrayBuilder();
+			for(Inschrijving lid : alleleden){
+				JsonObjectBuilder JOB = Json.createObjectBuilder();
+				Abonnement a = lid.getAbbonement_();
+				Klant k = lid.getKlant();
+				Locatie l = lid.getLocatie();
+				JOB.add("id", k.getId_());
+				JOB.add("voornaam", k.getVoornaam_());
+				JOB.add("achternaam", k.getAchternaam_());
+				JOB.add("abonnement", a.getAbbonementnaam());
+				JOB.add("woonplaats", k.getWoonplaats_());
+				JsonArrayBuilder.add(JOB);
+			}
+			String JsonStr = JsonArrayBuilder.build().toString();
+			return JsonStr;
+		}
+		if(filter.equals("ID")){
+			try{
+			int filterwaardeint = Integer.parseInt(filterwaarde);
+			List<Inschrijving> alleleden = idao.getFilteredID(filterwaardeint);
+			JsonArrayBuilder JsonArrayBuilder = Json.createArrayBuilder();
+			for(Inschrijving lid : alleleden){
+				JsonObjectBuilder JOB = Json.createObjectBuilder();
+				Abonnement a = lid.getAbbonement_();
+				Klant k = lid.getKlant();
+				Locatie l = lid.getLocatie();
+				JOB.add("id", k.getId_());
+				JOB.add("voornaam", k.getVoornaam_());
+				JOB.add("achternaam", k.getAchternaam_());
+				JOB.add("abonnement", a.getAbbonementnaam());
+				JOB.add("woonplaats", k.getWoonplaats_());
+				JsonArrayBuilder.add(JOB);
+			}
+			String JsonStr = JsonArrayBuilder.build().toString();
+			return JsonStr;
+			}catch(Exception e){
+				throw new WebApplicationException("error");
+			}
+
+		}
+		if(filter.equals("woonplaats")){
+			List<Inschrijving> alleleden = idao.getFilteredWoonplaats(filterwaarde);
+			JsonArrayBuilder JsonArrayBuilder = Json.createArrayBuilder();
+			for(Inschrijving lid : alleleden){
+				JsonObjectBuilder JOB = Json.createObjectBuilder();
+				Abonnement a = lid.getAbbonement_();
+				Klant k = lid.getKlant();
+				Locatie l = lid.getLocatie();
+				JOB.add("id", k.getId_());
+				JOB.add("voornaam", k.getVoornaam_());
+				JOB.add("achternaam", k.getAchternaam_());
+				JOB.add("abonnement", a.getAbbonementnaam());
+				JOB.add("woonplaats", k.getWoonplaats_());
+				JsonArrayBuilder.add(JOB);
+			}
+			String JsonStr = JsonArrayBuilder.build().toString();
+			return JsonStr;
+		}
+		if(filter.equals("abonnement")){
+			List<Inschrijving> alleleden = idao.getFilteredAbonnement(filterwaarde);
+			JsonArrayBuilder JsonArrayBuilder = Json.createArrayBuilder();
+			for(Inschrijving lid : alleleden){
+				JsonObjectBuilder JOB = Json.createObjectBuilder();
+				Abonnement a = lid.getAbbonement_();
+				Klant k = lid.getKlant();
+				Locatie l = lid.getLocatie();
+				JOB.add("id", k.getId_());
+				JOB.add("voornaam", k.getVoornaam_());
+				JOB.add("achternaam", k.getAchternaam_());
+				JOB.add("abonnement", a.getAbbonementnaam());
+				JOB.add("woonplaats", k.getWoonplaats_());
+				JsonArrayBuilder.add(JOB);
+			}
+			String JsonStr = JsonArrayBuilder.build().toString();
+			return JsonStr;
+		}
+		throw new WebApplicationException("Error");
+	}
 		
 }

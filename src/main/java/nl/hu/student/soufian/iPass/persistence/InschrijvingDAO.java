@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import nl.hu.student.soufian.iPass.model.Abonnement;
 import nl.hu.student.soufian.iPass.model.Inschrijving;
@@ -197,4 +198,213 @@ public class InschrijvingDAO extends BaseDAO{
 		}
 	}
 
+
+	public List<Inschrijving> getFilteredAchternaam(String filter) {
+		try(Connection con = super.getConnection()){
+		Statement stmt = con.createStatement();
+		String cap = filter.substring(0, 1).toUpperCase() + filter.substring(1);
+		String Querry = "SELECT * FROM klant t JOIN inschrijving i ON t.ID = I.klant_ID JOIN locatie l on i.locatieid= l.locatieid JOIN abonnement a on i.typeabonnement = a.typeabonnement WHERE achternaam Like '%"+filter+"%' or achternaam Like '"+filter+"%' or achternaam Like '%"+filter+"' or achternaam Like '%"+cap+"%' or achternaam Like '"+cap+"%' or achternaam Like '%"+cap+"'";
+		ResultSet rs = stmt.executeQuery(Querry);
+		int id;
+		String voornaam;
+		String achternaam;
+		String bankrekeningnummer;
+		String telefoonnummer;
+		String woonplaatsklant;
+		String adresklant;
+		String email;
+		
+		String plaatsnaam;
+		String postcode;
+		String adres;
+		int Locatieid;
+		
+		String abbonementnaam;
+		double prijs;
+		
+		ArrayList<Inschrijving> alleinschrijvingen= new ArrayList<Inschrijving>();
+
+		while (rs.next()) {   
+			voornaam = 			rs.getString("voornaam");
+			achternaam = 		rs.getString("achternaam");
+			id = 				rs.getInt("id");
+			bankrekeningnummer =rs.getString("bankrekeningnummer");
+			telefoonnummer =	rs.getString("telefoonnummer");
+			woonplaatsklant = 	rs.getString("woonplaats");
+			adresklant = 		rs.getString("adresklant");
+			email = 			rs.getString("email");
+			
+			plaatsnaam = 		rs.getString("plaatsnaam");
+			postcode = 			rs.getString("postcode");
+			adres = 			rs.getString("adres");
+			Locatieid = 		rs.getInt("locatieid");
+			
+			abbonementnaam = 	rs.getString("typeabonnement");
+			prijs = 			rs.getDouble("prijs");
+			alleinschrijvingen.add(new Inschrijving(new Klant(voornaam, achternaam, id, bankrekeningnummer, telefoonnummer, woonplaatsklant, adresklant, email),new Locatie(plaatsnaam, postcode, adres, Locatieid), new Abonnement(abbonementnaam, prijs)));
+		}
+		stmt.close();
+		con.close();
+		return alleinschrijvingen;
+	}catch(Exception ex){
+		ex.printStackTrace();
+		return null;
+	}
+	}
+	
+	public List<Inschrijving> getFilteredID(int filter) {
+		try(Connection con = super.getConnection()){
+		Statement stmt = con.createStatement();
+		String Querry = "SELECT * FROM klant t JOIN inschrijving i ON t.ID = I.klant_ID JOIN locatie l on i.locatieid= l.locatieid JOIN abonnement a on i.typeabonnement = a.typeabonnement WHERE id Like '%"+filter+"%' or id Like '"+filter+"%' or id Like '%"+filter+"'";
+		ResultSet rs = stmt.executeQuery(Querry);
+		int id;
+		String voornaam;
+		String achternaam;
+		String bankrekeningnummer;
+		String telefoonnummer;
+		String woonplaatsklant;
+		String adresklant;
+		String email;
+		
+		String plaatsnaam;
+		String postcode;
+		String adres;
+		int Locatieid;
+		
+		String abbonementnaam;
+		double prijs;
+		
+		ArrayList<Inschrijving> alleinschrijvingen= new ArrayList<Inschrijving>();
+
+		while (rs.next()) {   
+			voornaam = 			rs.getString("voornaam");
+			achternaam = 		rs.getString("achternaam");
+			id = 				rs.getInt("id");
+			bankrekeningnummer =rs.getString("bankrekeningnummer");
+			telefoonnummer =	rs.getString("telefoonnummer");
+			woonplaatsklant = 	rs.getString("woonplaats");
+			adresklant = 		rs.getString("adresklant");
+			email = 			rs.getString("email");
+			
+			plaatsnaam = 		rs.getString("plaatsnaam");
+			postcode = 			rs.getString("postcode");
+			adres = 			rs.getString("adres");
+			Locatieid = 		rs.getInt("locatieid");
+			
+			abbonementnaam = 	rs.getString("typeabonnement");
+			prijs = 			rs.getDouble("prijs");
+			alleinschrijvingen.add(new Inschrijving(new Klant(voornaam, achternaam, id, bankrekeningnummer, telefoonnummer, woonplaatsklant, adresklant, email),new Locatie(plaatsnaam, postcode, adres, Locatieid), new Abonnement(abbonementnaam, prijs)));
+		}
+		stmt.close();
+		con.close();
+		return alleinschrijvingen;
+	}catch(Exception ex){
+		ex.printStackTrace();
+		return null;
+	}
+	}
+	public List<Inschrijving> getFilteredWoonplaats(String filter) {
+		try(Connection con = super.getConnection()){
+		Statement stmt = con.createStatement();
+		String cap = filter.substring(0, 1).toUpperCase() + filter.substring(1);
+		String Querry = "SELECT * FROM klant t JOIN inschrijving i ON t.ID = I.klant_ID JOIN locatie l on i.locatieid= l.locatieid JOIN abonnement a on i.typeabonnement = a.typeabonnement WHERE woonplaats Like '%"+filter+"%' or woonplaats Like '"+filter+"%' or woonplaats Like '%"+filter+"' or woonplaats Like '%"+cap+"%' or woonplaats Like '"+cap+"%' or woonplaats Like '%"+cap+"'";
+		ResultSet rs = stmt.executeQuery(Querry);
+		int id;
+		String voornaam;
+		String achternaam;
+		String bankrekeningnummer;
+		String telefoonnummer;
+		String woonplaatsklant;
+		String adresklant;
+		String email;
+		
+		String plaatsnaam;
+		String postcode;
+		String adres;
+		int Locatieid;
+		
+		String abbonementnaam;
+		double prijs;
+		
+		ArrayList<Inschrijving> alleinschrijvingen= new ArrayList<Inschrijving>();
+
+		while (rs.next()) {   
+			voornaam = 			rs.getString("voornaam");
+			achternaam = 		rs.getString("achternaam");
+			id = 				rs.getInt("id");
+			bankrekeningnummer =rs.getString("bankrekeningnummer");
+			telefoonnummer =	rs.getString("telefoonnummer");
+			woonplaatsklant = 	rs.getString("woonplaats");
+			adresklant = 		rs.getString("adresklant");
+			email = 			rs.getString("email");
+			
+			plaatsnaam = 		rs.getString("plaatsnaam");
+			postcode = 			rs.getString("postcode");
+			adres = 			rs.getString("adres");
+			Locatieid = 		rs.getInt("locatieid");
+			
+			abbonementnaam = 	rs.getString("typeabonnement");
+			prijs = 			rs.getDouble("prijs");
+			alleinschrijvingen.add(new Inschrijving(new Klant(voornaam, achternaam, id, bankrekeningnummer, telefoonnummer, woonplaatsklant, adresklant, email),new Locatie(plaatsnaam, postcode, adres, Locatieid), new Abonnement(abbonementnaam, prijs)));
+		}
+		stmt.close();
+		con.close();
+		return alleinschrijvingen;
+	}catch(Exception ex){
+		ex.printStackTrace();
+		return null;
+	}
+	}
+	public List<Inschrijving> getFilteredAbonnement(String filter) {
+		try(Connection con = super.getConnection()){
+		Statement stmt = con.createStatement();
+		String cap = filter.substring(0, 1).toUpperCase() + filter.substring(1);
+		String Querry = "SELECT * FROM klant t JOIN inschrijving i ON t.ID = I.klant_ID JOIN locatie l on i.locatieid= l.locatieid JOIN abonnement a on i.typeabonnement = a.typeabonnement WHERE i.typeabonnement Like '%"+filter+"%' or i.typeabonnement Like '"+filter+"%' or i.typeabonnement Like '%"+filter+"' or i.typeabonnement Like '%"+cap+"%' or i.typeabonnement Like '"+cap+"%' or i.typeabonnement Like '%"+cap+"'";
+		ResultSet rs = stmt.executeQuery(Querry);
+		int id;
+		String voornaam;
+		String achternaam;
+		String bankrekeningnummer;
+		String telefoonnummer;
+		String woonplaatsklant;
+		String adresklant;
+		String email;
+		
+		String plaatsnaam;
+		String postcode;
+		String adres;
+		int Locatieid;
+		
+		String abbonementnaam;
+		double prijs;
+		
+		ArrayList<Inschrijving> alleinschrijvingen= new ArrayList<Inschrijving>();
+
+		while (rs.next()) {   
+			voornaam = 			rs.getString("voornaam");
+			achternaam = 		rs.getString("achternaam");
+			id = 				rs.getInt("id");
+			bankrekeningnummer =rs.getString("bankrekeningnummer");
+			telefoonnummer =	rs.getString("telefoonnummer");
+			woonplaatsklant = 	rs.getString("woonplaats");
+			adresklant = 		rs.getString("adresklant");
+			email = 			rs.getString("email");
+			
+			plaatsnaam = 		rs.getString("plaatsnaam");
+			postcode = 			rs.getString("postcode");
+			adres = 			rs.getString("adres");
+			Locatieid = 		rs.getInt("locatieid");
+			
+			abbonementnaam = 	rs.getString("typeabonnement");
+			prijs = 			rs.getDouble("prijs");
+			alleinschrijvingen.add(new Inschrijving(new Klant(voornaam, achternaam, id, bankrekeningnummer, telefoonnummer, woonplaatsklant, adresklant, email),new Locatie(plaatsnaam, postcode, adres, Locatieid), new Abonnement(abbonementnaam, prijs)));
+		}
+		stmt.close();
+		con.close();
+		return alleinschrijvingen;
+	}catch(Exception ex){
+		ex.printStackTrace();
+		return null;
+	}
+	}
 }
