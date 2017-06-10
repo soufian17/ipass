@@ -252,10 +252,10 @@ public class InschrijvingDAO extends BaseDAO{
 	}
 	}
 	
-	public List<Inschrijving> getFilteredID(int filter) {
+	public List<Inschrijving> getFilteredID(String filter) {
 		try(Connection con = super.getConnection()){
 		Statement stmt = con.createStatement();
-		String Querry = "SELECT * FROM klant t JOIN inschrijving i ON t.ID = I.klant_ID JOIN locatie l on i.locatieid= l.locatieid JOIN abonnement a on i.typeabonnement = a.typeabonnement WHERE id Like '%"+filter+"%' or id Like '"+filter+"%' or id Like '%"+filter+"'";
+		String Querry = "SELECT * FROM klant t JOIN inschrijving i ON t.ID = I.klant_ID JOIN locatie l on i.locatieid= l.locatieid JOIN abonnement a on i.typeabonnement = a.typeabonnement WHERE cast(id as varchar(10)) like '"+filter+"%' or cast(id as varchar(10)) like '%"+filter+"' or cast(id as varchar(10)) like '%"+filter+"%'";
 		ResultSet rs = stmt.executeQuery(Querry);
 		int id;
 		String voornaam;

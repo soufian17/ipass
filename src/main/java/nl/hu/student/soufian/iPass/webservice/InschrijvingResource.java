@@ -195,9 +195,7 @@ public class InschrijvingResource {
 			return JsonStr;
 		}
 		if(filter.equals("ID")){
-			try{
-			int filterwaardeint = Integer.parseInt(filterwaarde);
-			List<Inschrijving> alleleden = idao.getFilteredID(filterwaardeint);
+			List<Inschrijving> alleleden = idao.getFilteredID(filterwaarde);
 			JsonArrayBuilder JsonArrayBuilder = Json.createArrayBuilder();
 			for(Inschrijving lid : alleleden){
 				JsonObjectBuilder JOB = Json.createObjectBuilder();
@@ -213,9 +211,6 @@ public class InschrijvingResource {
 			}
 			String JsonStr = JsonArrayBuilder.build().toString();
 			return JsonStr;
-			}catch(Exception e){
-				throw new WebApplicationException("error");
-			}
 
 		}
 		if(filter.equals("woonplaats")){

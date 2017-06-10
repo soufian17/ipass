@@ -14,7 +14,7 @@
   <input type="radio" name="filter" value="woonplaats">Woonplaats<br> 
   <input type="radio" name="filter" value="abonnement">Abonnement<br>
   
-<input  type="text" placeholder="Filter" id="filterwaarde" name="filterwaarde"/> 
+<input  type="text" placeholder="Filter"  id="filterwaarde" name="filterwaarde"/> 
  <br></br>  
   <input class="filterbutton" type="button" id="mybutton" value="Filteren" />
  
@@ -31,7 +31,7 @@
 $("#mybutton").click(function (){
 	var x = $('input[name="filter"]:checked').val();
 	var y = $("#filterwaarde").val();
-	if(y!=""){
+	if (/^[0-9A-Za-z]+$/.test(y)) {
     $.ajax({
         url: "restservices/inschrijvingen/filter/"+x+"/"+y,
         method: "GET",
@@ -46,7 +46,7 @@ $("#mybutton").click(function (){
 			}
     });
 	}else{
-		alert("U heeft geen zoekopdracht ingevoerd");
+		alert("U heeft geen geldige zoekopdracht ingevoerd. \n(A-Z, a-z, 0-9)'zijn geldige karakters.'");
 	}
 })
 function goBack() {
