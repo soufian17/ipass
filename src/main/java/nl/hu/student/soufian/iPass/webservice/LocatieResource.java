@@ -7,6 +7,7 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+
 import javax.ws.rs.Produces;
 
 import nl.hu.student.soufian.iPass.model.Locatie;

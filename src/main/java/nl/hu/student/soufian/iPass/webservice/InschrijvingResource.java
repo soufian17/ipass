@@ -251,5 +251,34 @@ public class InschrijvingResource {
 		}
 		throw new WebApplicationException("Error");
 	}
+	@Path("getInfo/{locid}")
+	@GET
+	@Produces("application/json")
+	public String getInfo(@PathParam("locid")int LocID){
+		InschrijvingDAO idao = new InschrijvingDAO();
+		List<String> info = idao.getLocatieInfo(LocID);
+		JsonObjectBuilder JOB = Json.createObjectBuilder();
+		JsonArrayBuilder JAB = Json.createArrayBuilder();
+		double totaal = 0;
+		int aantalabo = 0;
+		for (String inf : info){
+			JsonObjectBuilder JOB2 = Json.createObjectBuilder();
+			String[] stuk = inf.split("---");
+			String sum = stuk[0];
+			String prijs = stuk[1];
+			String type = stuk[2];
+			String aantal = stuk[3];
+			JOB2.add("naam", type+" - "+prijs);
+			JOB2.add("aantal", aantal);
+			JAB.add(JOB2);
+			aantalabo = aantalabo+Integer.parseInt(aantal);
+			totaal= totaal+ Double.parseDouble(sum);
+		}
+		JOB.add("abonnementen", JAB);
+		JOB.add("aantalabonnementen", aantalabo);
+		JOB.add("inkomsten", totaal);
 		
+		String JsonStr = JOB.build().toString();
+		return JsonStr;
+	}
 }

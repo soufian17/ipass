@@ -407,4 +407,31 @@ public class InschrijvingDAO extends BaseDAO{
 		return null;
 	}
 	}
+
+
+	public List<String> getLocatieInfo(int locID) {
+		try(Connection con = super.getConnection()){
+
+		String Query = "select locatieid,sum(ab.prijs) as sum ,count(*) as aantal,ab.typeabonnement,ab.prijs from inschrijving i join abonnement ab on ab.typeabonnement=i.typeabonnement group by locatieid,ab.typeabonnement,ab.prijs having locatieid=?;";
+		PreparedStatement ps = con.prepareStatement(Query);
+		ps.setInt	(1, locID);
+		ResultSet rs =  ps.executeQuery();
+		List<String> lijst = new ArrayList<String>();
+		double prijs;
+		double sum;
+		int aantal;
+		String typeabonnement;
+		while (rs.next()){
+			prijs = rs.getDouble("prijs");
+			typeabonnement = rs.getString("typeabonnement");
+			sum = rs.getDouble("sum");
+			aantal = rs.getInt("aantal");
+			lijst.add(sum+"---"+prijs+"---"+typeabonnement+"---"+aantal);
+		}
+		return lijst;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }
