@@ -26,7 +26,7 @@ public class AbonnementResource {
 		for(Abonnement abbo : alleabonnementen){
 			JsonObjectBuilder JOB = Json.createObjectBuilder();
 			JOB.add("naam",abbo.getAbbonementnaam());
-			JOB.add("prijs", abbo.getPrijs());
+			JOB.add("prijs", "€ "+abbo.getPrijs());
 			JsonArrayBuilder.add(JOB);
 		}
 		String jsonStr = JsonArrayBuilder.build().toString();

@@ -64,7 +64,10 @@ public class InschrijvingResource {
 	public String getAll(){
 		InschrijvingDAO idao = new InschrijvingDAO();
 		List<Inschrijving> alleleden = idao.getAlleInschrijvingen();
+		int aantal = alleleden.size();
 		JsonArrayBuilder JsonArrayBuilder = Json.createArrayBuilder();
+		JsonObjectBuilder JOB2 = Json.createObjectBuilder();
+
 		for(Inschrijving lid : alleleden){
 			JsonObjectBuilder JOB = Json.createObjectBuilder();
 			Abonnement a = lid.getAbbonement_();
@@ -78,7 +81,9 @@ public class InschrijvingResource {
 			JOB.add("locatieid", l.getLocatieID());
 			JsonArrayBuilder.add(JOB);
 		}
-		String JsonStr = JsonArrayBuilder.build().toString();
+		JOB2.add("array", JsonArrayBuilder);
+		JOB2.add("aantal", aantal);
+		String JsonStr = JOB2.build().toString();
 		return JsonStr;
 	}
 	@DELETE
@@ -131,7 +136,7 @@ public class InschrijvingResource {
 		JOB.add("woonplaats", k.getWoonplaats_());
 		JOB.add("adres", k.getAdres_());
 		
-		JOB.add("abonnement", a.getAbbonementnaam()+" - "+a.getPrijs());
+		JOB.add("abonnement", a.getAbbonementnaam()+" - "+"€ "+a.getPrijs());
 		JOB.add("locatie", l.getPlaatsnaam_()+" - "+l.getAdres_());
 		JOB.add("locatieid", l.getLocatieID());
 		JOB.add("restabonnementen", JAB);
@@ -158,7 +163,7 @@ public class InschrijvingResource {
 		InschrijvingDAO idao = new InschrijvingDAO();
 		KlantDAO kdao = new KlantDAO();
 		if(kdao.updateKlant(id,voornaam,achternaam,bankrek,telefoonnummer,mail,woonplaats,adres)){
-			if(idao.updateInschrijving(idao.FindInschrijving(id),abbosoort,locatieInt)){
+			if(idao.updateInschrijving(idao.FindInschrijving(id),abbosoort.replace("€", ""),locatieInt)){
 				return "Lid met ID: '"+id+"' succesvol geüpdatet!";
 			}else{
 					return "Er is een error opgetreden.\n Neem contact op met uw geweldige ICT'er.";
@@ -268,7 +273,7 @@ public class InschrijvingResource {
 			String prijs = stuk[1];
 			String type = stuk[2];
 			String aantal = stuk[3];
-			JOB2.add("naam", type+" - "+prijs);
+			JOB2.add("naam", type+" - "+"€ "+prijs);
 			JOB2.add("aantal", aantal);
 			JAB.add(JOB2);
 			aantalabo = aantalabo+Integer.parseInt(aantal);

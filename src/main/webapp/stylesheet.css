@@ -119,6 +119,7 @@ div#leden{
 	padding: 10px 20px 10px 20px;
 	border: solid #36a4e8 1px;
 	text-decoration: none;
+	margin-left:-20px;
 }
 .btn:hover {
   background: #3cb0fd;
@@ -204,7 +205,8 @@ tr {
  
 
 .ic:hover{
-	background:#ECECEC;
+	margin-top:-5px;
+	background: #ECECEC;
 	border-style: solid;
     border-width: 2.9px;
     border-color: #ECECEC;
@@ -223,7 +225,7 @@ tr:nth-child(odd) td {
 }
  
 tr:nth-child(odd):hover td {
-  background:#4E5066;
+
 }
 
 tr:last-child td:first-child {
@@ -381,4 +383,20 @@ td.text-right {
     width: 75%;
     float: left;
 
+}
+.abo-left{
+	padding-left:0.5em;
+}
+.abo-middle{
+	padding-left:1em;
+}
+.abo-right{
+	padding-left:1em;
+}
+.heavy{
+	font-weight:bold;
+}
+.div-avg{
+	background:#c0c0c0;
+	box-shadow: 10px 10px 5px #888888;
 }
