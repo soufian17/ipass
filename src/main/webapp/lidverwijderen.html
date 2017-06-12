@@ -2,6 +2,7 @@
 <html>
 <title>Klantbeheer</title>
 <head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -14,11 +15,34 @@
 
   </table>
 
- 
- 
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Verwijder alert</h4>
+        </div>
+        <div class="modal-body">
+          <p id="modal-info"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancelVerwijdering" class="btn-default" 	  data-dismiss="modal">Close</button>
+          <button type="button" id="verwijderDef" 		class="btn-danger btn-ok" data-dismiss="modal" >Verwijder lid</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div id="alert-div" class="alert alert-info alert-dismissable animated fadeInLeft hidden2">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <label id="alert-label"></label>
+  </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <script>
- 
  function loadLeden(){
      $.ajax({
          url: "restservices/inschrijvingen/all",
@@ -26,22 +50,38 @@
          success: function (data) {
          	$("#leden").html("<tr>	<th>ID</th> <th>Voornaam</th> <th>Achternaam</th> <th>Abonnement</th> <th>Locatie</th> <th>Verwijderen</th> </tr>");
          	$.each(data.array,function(key,value){
-         		$('#leden > tbody:last-child').append('<tr id="'+value.id+'" > <td>'+value.id+"</td> <td>"+value.voornaam+"</td> <td>"+value.achternaam+"</td> <td>"+value.abonnement+"</td><td>"+value.locatie+'</td><td class="box2"><i onclick=verwijderLid("'+value.id+'"'+") class='fa fa-remove' style='font-size:48px;color:red'></i></td> </tr>");
+         		$('#leden > tbody:last-child').append('<tr  id="'+value.id+'" > <td>'+value.id+"</td> <td>"+value.voornaam+"</td> <td>"+value.achternaam+"</td> <td>"+value.abonnement+"</td><td>"+value.locatie+'</td><td class="box2"><i onclick=verwijderLid("'+value.id+'"'+") class='fa fa-remove' style='font-size:48px;color:red'></i></td> </tr>");
          	})
 			}
      })
  };
  loadLeden();
+
  function verwijderLid(verwijderId){
-     $.ajax({
-         url: "restservices/inschrijvingen/verwijder/"+verwijderId,
-         method: "DELETE",
-         success: function (data) {
-			$("#"+verwijderId).fadeTo(500, 0.2);
-			$("#"+verwijderId).hide(500);
-        	setTimeout(function() { alert("Deleted"); }, 1100);
-			}
-     })
+	 VerwijderId = verwijderId;
+	 $("#modal-info").html("je staat op het punt om lid met ID: '"+verwijderId+"' te verwijderen, Weet je het zeker?")
+	 $("#myModal").modal();
+ };
+
+$("#verwijderDef").click( function (){
+	verwijderDef(VerwijderId);
+});
+$("#cancelVerwijdering").click(function (){
+	VerwijderId = 'undefined';
+})
+ function verwijderDef(verwijderID){
+	$.ajax({
+     url: "restservices/inschrijvingen/verwijder/"+verwijderID,
+     method: "DELETE",
+     success: function (data) {
+		$("#"+verwijderID).fadeTo(500, 0.2);
+		$("#"+verwijderID).hide(500);
+    	setTimeout(function() { 
+    		$("#alert-label").html("Lid met ID: '"+VerwijderId+"' is verwijderd");
+    		$("#alert-div").show();
+    		}, 1100);
+		}
+ })
  };
 function goBack() {
     window.history.back()

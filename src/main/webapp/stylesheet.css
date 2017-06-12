@@ -10,7 +10,12 @@
   	font-weight: 400;
   	text-rendering: optimizeLegibility;
 }
-
+.hidden2{
+	position: fixed;
+    top: 0;
+    left: 0;
+	display:none;
+}
 
 a.button{
 	background: #ECECEC;
