@@ -4,6 +4,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class BaseDAO {
+	//maakt connectie met db
   protected final Connection getConnection() {
     Connection result = null;
 

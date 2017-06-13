@@ -11,7 +11,8 @@ import nl.hu.student.soufian.iPass.model.Abonnement;
 import nl.hu.student.soufian.iPass.model.Locatie;
 
 public class LocatieDAO extends BaseDAO{
-
+	
+	//vind locatie met adres 'adres' en plaatsnaam 'plaats'.
 	public Locatie findLocatie(String locatieStr) {
 		try(Connection con = super.getConnection()){
 			String[] split = locatieStr.split(" - ");
@@ -35,6 +36,7 @@ public class LocatieDAO extends BaseDAO{
 			return null;
 		}
 	}
+	//returnt alle locaties
 	public List<Locatie> allelocaties(){
 		try(Connection con = super.getConnection()){
 			List <Locatie> allelocaties = new ArrayList<Locatie>();
@@ -54,6 +56,11 @@ public class LocatieDAO extends BaseDAO{
 			return null;
 		}
 	}
+	
+	
+	
+	//returnt alle abonnementen BEHALVE degene met locatieid 'locatieid'.
+	//wordt gebruikt om de selectie aan te vullen in de forms(naast de waarde gekoppeld aan het lid, die wordt eerder aangevuld.)
 	public List<Locatie> getRestLocaties(int locatieid) {
 		try(Connection con = super.getConnection()){
 			
@@ -75,6 +82,8 @@ public class LocatieDAO extends BaseDAO{
 		return null;
 	}
 	}
+	
+	//vindt locatie met id 'id'
 	public Locatie findLocatieById(int locatieid) {
 		try(Connection con = super.getConnection()){
 		String query = "select * from locatie where locatieid=?";

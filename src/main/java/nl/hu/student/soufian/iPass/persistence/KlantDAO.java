@@ -17,7 +17,7 @@ public class KlantDAO extends BaseDAO{
 
 
 	
-	//voeg een klant toe in de klantt table
+	//voeg een klant toe in de klant table
 	public boolean AddKlant(String voornaam,String achternaam,String bankrekeningnummer,String telefoonnummer,String email,String woonplaats,String adres){
 		try(Connection con = super.getConnection()){
 		String Querry = "insert into klant (voornaam,achternaam,bankrekeningnummer,telefoonnummer,woonplaats,email,adresklant) values (?,?,?,?,?,?,?)";
@@ -37,7 +37,7 @@ public class KlantDAO extends BaseDAO{
 	}
 	
 	
-	//verwijder een klant met id="id" VERWIJDERD OOK HET BIJBEHOREND ABBONEMENT MITS AANWEZIG!
+	//verwijder een klant met id="id" 
 	public boolean removeKlant(int id){
 		try (Connection con = super.getConnection()){
 		String Querry = "delete from klant where id=?";
@@ -49,8 +49,8 @@ public class KlantDAO extends BaseDAO{
 			return false;
 		}	
 	}
-
-
+	
+	//voeg een klant toe op basis van een klant object.
 	public boolean AddKlant(Klant klant) {
 		try(Connection con = super.getConnection()){
 		String Querry = "insert into klant (voornaam,achternaam,bankrekeningnummer,telefoonnummer,woonplaats,email,adresklant) values (?,?,?,?,?,?,?)";
@@ -106,8 +106,9 @@ public class KlantDAO extends BaseDAO{
 			return null;
 		}
 	}
-
-
+	
+	
+	//vind de klant met voornaam 'voornaam', achternaam 'achternaam' en bankrekeningnummer 'bankrek'.
 	public Klant findKlant(String voornaam, String achternaam, String bankrek) {
 		try(Connection con = super.getConnection()){
 			String query = "select * from klant where voornaam=? and achternaam=? and bankrekeningnummer=?";
@@ -131,6 +132,7 @@ public class KlantDAO extends BaseDAO{
 			return null;
 		}
 	}
+	//vind klant met id 'id'
 	public Klant findKlant(int id) {
 		try(Connection con = super.getConnection()){
 			String query = "select * from klant  id=?";
@@ -155,8 +157,9 @@ public class KlantDAO extends BaseDAO{
 			return null;
 		}
 	}
-
-
+	
+	
+	//update alle gegevens van een klant met id 'id'
 	public boolean updateKlant(int id, String voornaam, String achternaam, String bankrek, String telefoonnummer,String mail, String woonplaats, String adres) {
 		try (Connection con = super.getConnection()){
 			String Querry = "update klant set voornaam=?, achternaam=?, adresklant=?,woonplaats=?,bankrekeningnummer=?,telefoonnummer=?,email=? where id = ?";

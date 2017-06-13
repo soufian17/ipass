@@ -19,7 +19,9 @@ import nl.hu.student.soufian.iPass.model.Locatie;
 public class InschrijvingDAO extends BaseDAO{
 
 		
-	
+	//update inschrijving where klant_id ='id', heeft naast inschrijving object ook String naam_prijs en int LocInt
+	//omdat in het inschrijvingsobject wat meegegeven wordt die infomatie niet is geupdatet. dat wordt pas in de db
+	//gedaan.
 	public boolean updateInschrijving(Inschrijving i,String naam_prijs, int locInt){
 		try(Connection con = super.getConnection()){
 			String Querry = "update inschrijving set typeabonnement=? , locatieID=? where klant_id=?";
@@ -45,14 +47,15 @@ public class InschrijvingDAO extends BaseDAO{
 	}
 
 
-	//voeg een inschrijving toe toe in de inschrijvingt table
-	public boolean SaveInschrijving(int id, String abonnementnaam, String adres) {
+	//voeg een inschrijving toe toe in de inschrijvingt table zonder inschrijvings object maar met losse int id,String abonnement naam
+	//en int LocID (wordt niet gebruikt).
+	public boolean SaveInschrijving(int id, String abonnementnaam, int locID) {
 		try(Connection con = super.getConnection()){
 		String Querry = "insert into Inschrijving values (?,?,?)";
 		PreparedStatement ps = con.prepareStatement(Querry);
 		ps.setInt	(1, id);
 		ps.setString(2, abonnementnaam);
-		ps.setString(3, adres);
+		ps.setInt(3, locID);
 		ps.executeUpdate();
 		return true;
 		}catch(Exception ex){
@@ -60,6 +63,7 @@ public class InschrijvingDAO extends BaseDAO{
 			return false;
 		}
 	}
+	//vindt inschrijving met id 'id'
 	public Inschrijving FindInschrijving(int id){
 		try(Connection con = super.getConnection()){
 			String Querry = "select * from inschrijving i join klant k on i.klant_id=k.id join locatie l on i.locatieid=l.locatieid join abonnement a on a.typeabonnement=i.typeabonnement where id=?";
@@ -109,6 +113,7 @@ public class InschrijvingDAO extends BaseDAO{
 		}
 		
 	}
+	//sla een inschrijving op met een inschrijvngs object(wordt wel gebruikt)
 	public Inschrijving SaveInschrijving(Inschrijving inschrijving){
 		try(Connection con = super.getConnection()){
 			String Querry = "insert into Inschrijving values (?,?,?)";
@@ -123,6 +128,7 @@ public class InschrijvingDAO extends BaseDAO{
 				return null;
 			}
 	}
+	//verwijder inschrijving met id 'id'(verwijderd ook de bijbehordende klant)
 	public boolean removeInschrijving(int id){
 		try(Connection con = super.getConnection()){
 		
@@ -146,7 +152,7 @@ public class InschrijvingDAO extends BaseDAO{
 		
 	}
 
-	
+	//returnt alle incshrijvingen als inschrijving-objecten
 	public ArrayList<Inschrijving> getAlleInschrijvingen()  {
 		try(Connection con = super.getConnection()){
 			Statement stmt = con.createStatement();
@@ -198,7 +204,7 @@ public class InschrijvingDAO extends BaseDAO{
 		}
 	}
 
-
+	//returnt alle inschrijvingen gefilterd op kolom achternaam
 	public List<Inschrijving> getFilteredAchternaam(String filter) {
 		try(Connection con = super.getConnection()){
 		Statement stmt = con.createStatement();
@@ -252,6 +258,7 @@ public class InschrijvingDAO extends BaseDAO{
 	}
 	}
 	
+	//returnt alle inschrijvingen gefilterd op kolom id
 	public List<Inschrijving> getFilteredID(String filter) {
 		try(Connection con = super.getConnection()){
 		Statement stmt = con.createStatement();
@@ -303,6 +310,8 @@ public class InschrijvingDAO extends BaseDAO{
 		return null;
 	}
 	}
+	
+	//returnt alle inschrijvingen gefilterd op kolom woonplaats
 	public List<Inschrijving> getFilteredWoonplaats(String filter) {
 		try(Connection con = super.getConnection()){
 		Statement stmt = con.createStatement();
@@ -355,6 +364,7 @@ public class InschrijvingDAO extends BaseDAO{
 		return null;
 	}
 	}
+	//returnt alle inschrijvingen gefilterd op kolom abonnement
 	public List<Inschrijving> getFilteredAbonnement(String filter) {
 		try(Connection con = super.getConnection()){
 		Statement stmt = con.createStatement();
@@ -407,8 +417,12 @@ public class InschrijvingDAO extends BaseDAO{
 		return null;
 	}
 	}
-
-
+	
+	//returnt alle abonnementen die horen bij een locatie en geeft extra info hierover:
+	//totale inkomsten van een abonnement door middel van sum
+	//prijs van een abonnement
+	//aantal van dit abonnement op deze locatie
+	//naam van het abonnement
 	public List<String> getLocatieInfo(int locID) {
 		try(Connection con = super.getConnection()){
 

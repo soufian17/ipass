@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<h1><i onclick="goBack()" class="fa fa-angle-double-left fa-border fa-pull-right ic"></i> Klantbeheer </h1>
+<h1><i onclick="goBack()" class="fa fa-angle-double-left fa-pull-right ic"></i> Klantbeheer </h1>
 <div class="filter">
 <form id="filterform">
   <input type="radio" name="filter" value="achternaam" checked> Achternaam<br>
@@ -17,11 +17,11 @@
 <input  type="text" placeholder="Filter"  id="filterwaarde" name="filterwaarde"/> 
  <br></br>  
   <input class="filterbutton" type="button" id="mybutton" value="Filteren" />
- 
 </form> 
 </div>
 <div class="filterresultaten">
   <table  id="leden" class="table-fill">
+  <tr class='tr'>	<th>ID</th> <th>Voornaam</th> <th>Achternaam</th> <th>Abonnement</th> <th>Woonplaats</th> </tr>
   </table>
 </div>
 
@@ -36,7 +36,7 @@ $("#mybutton").click(function (){
         url: "restservices/inschrijvingen/filter/"+x+"/"+y,
         method: "GET",
         success: function (data) {
-        	$("#leden").html("<tr class'tr'>	<th>ID</th> <th>Voornaam</th> <th>Achternaam</th> <th>Abonnement</th> <th>Woonplaats</th> </tr>");
+        	$("#leden").html("<tr class='tr'>	<th>ID</th> <th>Voornaam</th> <th>Achternaam</th> <th>Abonnement</th> <th>Woonplaats</th> </tr>");
         	$.each(data,function(key,value){
         		$('#leden > tbody:last-child').append('<tr  class="tr" > <td >'+value.id+"</td> <td>"+value.voornaam+"</td> <td>"+value.achternaam+"</td> <td>"+value.abonnement+"</td><td>"+value.woonplaats+"</td> </tr>");
         	})

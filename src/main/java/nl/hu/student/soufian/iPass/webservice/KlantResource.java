@@ -8,6 +8,13 @@
 //import javax.ws.rs.Path;
 //import javax.ws.rs.Produces;
 //
+
+//voor veel methodes heb ik besloten dat het makkelijker en overzichtelijker zou zijn als ik via 
+//de 'inschrijvingresource' zou werken, vandaar dat deze klasse leeg is. hij is gelaten voor het geval dat 
+//ik hem ooit nodig vindt.
+
+
+
 //import nl.hu.student.soufian.iPass.model.Klant;
 //import nl.hu.student.soufian.iPass.persistence.KlantDAO;
 //

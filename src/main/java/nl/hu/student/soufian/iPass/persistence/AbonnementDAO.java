@@ -19,7 +19,7 @@ public class AbonnementDAO extends BaseDAO{
 	//voeg een abbonementsoort toe in de abbonement(abonnement) table
 	public boolean addAbonnement(String naam,double prijs) {
 		try (Connection con = super.getConnection()){
-		String Querry = "insert into abbonement values (?,?)";
+		String Querry = "insert into abonnement (typeabonnement,prijs) values (?,?)";
 		PreparedStatement ps = con.prepareStatement(Querry);
 		ps.setString(1, naam);
 		ps.setDouble(2, prijs);
@@ -30,6 +30,7 @@ public class AbonnementDAO extends BaseDAO{
 		return false;
 	}
 	}
+	//vindt een abonnement met naam 'naam'
 	public Abonnement findAbonnement(String naam){
 		try(Connection con = super.getConnection()){
 			String query = "select * from abonnement where typeabonnement=?";
@@ -46,11 +47,11 @@ public class AbonnementDAO extends BaseDAO{
 		}
 	}
 
-	//haal een abbonement weg met de naam die je meegeeft
+	//verwijder een abonnement met de naam 'naam'.
 	public boolean removeAbonnement(String naam){
 		try(Connection con = super.getConnection()){
 		
-		String Querry = "delete from abbonement where abbonementnaam=?)";
+		String Querry = "delete from abbonement where typeabonnement=?)";
 		PreparedStatement ps = con.prepareStatement(Querry);
 		ps.setString(1, naam);
 		ps.executeUpdate();
@@ -62,7 +63,7 @@ public class AbonnementDAO extends BaseDAO{
 	}
 
 	
-	//return alle abbonementen
+	//returnt alle abbonementen
 	public ArrayList<Abonnement> getAllAbbonementen(){
 		try(Connection con = super.getConnection()){
 		
@@ -84,6 +85,8 @@ public class AbonnementDAO extends BaseDAO{
 			return null;
 		}
 	}
+	//returnt alle abonnementen BEHALVE degene met typeabonnement 'abonnementnaam'.
+	//wordt gebruikt om de selectie aan te vullen in de forms(naast de waarde gekoppeld aan het lid, die wordt eerder aangevuld.)
 	public List<Abonnement> getRestAbbonement(String abbonementnaam) {
 		try(Connection con = super.getConnection()){
 			

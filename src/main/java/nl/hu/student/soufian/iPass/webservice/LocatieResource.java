@@ -16,6 +16,7 @@ import nl.hu.student.soufian.iPass.persistence.LocatieDAO;
 @Path("locatie")
 public class LocatieResource {
 	
+	//returnt alle locaties in json uit de database.
 	@Path("all")
 	@GET
 	@Produces("application/json")

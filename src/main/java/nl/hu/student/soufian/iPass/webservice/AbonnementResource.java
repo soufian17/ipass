@@ -14,7 +14,7 @@ import nl.hu.student.soufian.iPass.persistence.AbonnementDAO;
 
 @Path("abonnement")
 public class AbonnementResource {
-	
+	//Stopt elk object in een JSON object en stopt deze JSON objecten in een JSON array.
 	@GET
 	@Path("all")
 	@Produces("application/json")

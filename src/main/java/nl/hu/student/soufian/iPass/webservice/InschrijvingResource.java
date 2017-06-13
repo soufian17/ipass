@@ -29,7 +29,9 @@ import nl.hu.student.soufian.iPass.persistence.KlantDAO;
 import nl.hu.student.soufian.iPass.persistence.LocatieDAO;
 @Path("inschrijvingen")
 public class InschrijvingResource {
-	
+	//Ontvangt alle form inhoud van de nieuwlid.html pagina en maakt hiermee een klant object ZONDER id,
+	//heeft ook een String 'abbosoort' en int locatieid, deze worden gebruikt om het klant object te koppelen
+	//met het goede locatie object/abonnement object in de database
 	@Path("add")
 	@POST
 	public String SaveInschrijving(
@@ -58,6 +60,8 @@ public class InschrijvingResource {
 		if(insdao.SaveInschrijving(inschrijving) != null);									//Query
 		return "lid succesvol toegevoegd!";
 	}
+	//Stopt elk object in een JSON object en stopt deze JSON objecten in een JSON array.
+	//returnt alle inschrijvingen in json formaat
 	@GET
 	@Path("/all")
 	@Produces("application/json")
@@ -86,6 +90,8 @@ public class InschrijvingResource {
 		String JsonStr = JOB2.build().toString();
 		return JsonStr;
 	}
+	//roept de 'removeInschrijving' methode aan met het id wat meegegeven wordt, dit
+	//id wordt gebruikt om uit zowel de klant en inschrijving tabel de inhoud met id 'id' te verwijderen.
 	@DELETE
 	@Path("verwijder/{id}")
 	public String verwijderLid(@PathParam("id")int id){
@@ -96,6 +102,9 @@ public class InschrijvingResource {
 			return "Er is een error opgetreden.\n Neem contact op met uw geweldige ICT'er.";
 		}
 	}
+	//returnt alle data behordend bij inschrijving met id 'id', haalt ook alle
+	//locaties en abonnementen op omdat deze in een selectiebox komen te staan. in het formulier
+	//waar dit wordt ingeladen.
 	@GET
 	@Path("getById/{id}")
 	@Produces("application/json")
@@ -145,7 +154,9 @@ public class InschrijvingResource {
 		String JsonStr = JOB.build().toString();
 		return JsonStr;
 	}
-
+	//1. de inschrijving wordt gevonden
+	//2. de klant wordt geupdatet
+	//3. de inschrijving wordt geupdatet(locatie en abonnement)
 	@PUT
 	@Path("update/{id}")
 	public String updateInschrijving(
@@ -162,16 +173,27 @@ public class InschrijvingResource {
 		
 		InschrijvingDAO idao = new InschrijvingDAO();
 		KlantDAO kdao = new KlantDAO();
-		if(kdao.updateKlant(id,voornaam,achternaam,bankrek,telefoonnummer,mail,woonplaats,adres)){
-			if(idao.updateInschrijving(idao.FindInschrijving(id),abbosoort.replace("€", ""),locatieInt)){
-				return "Lid met ID: '"+id+"' succesvol geüpdatet!";
-			}else{
-					return "Er is een error opgetreden.\n Neem contact op met uw geweldige ICT'er.";
-				}
-		}else{
-			return "Er is een error opgetreden.\n Neem contact op met uw magnefieke ICT'er.\n Klant is geüpdatet";
-		}
+		Inschrijving inschrijving = idao.FindInschrijving(id);
+		String abbo = abbosoort.replace("€", "");
+		kdao.updateKlant(id,voornaam,achternaam,bankrek,telefoonnummer,mail,woonplaats,adres);
+		idao.updateInschrijving(inschrijving,abbo,locatieInt);
+		return "Lid met ID: '"+id+"' succesvol geüpdatet!";
+		
+//		Dit kan ook maar is minder overzichtelijk (had ik eerst).
+//		if(kdao.updateKlant(id,voornaam,achternaam,bankrek,telefoonnummer,mail,woonplaats,adres)){
+//			if(idao.updateInschrijving(idao.FindInschrijving(id),abbosoort.replace("€", ""),locatieInt)){
+//				return "Lid met ID: '"+id+"' succesvol geüpdatet!";
+//			}else{
+//					return "Er is een error opgetreden.\n Neem contact op met uw geweldige ICT'er.";
+//				}
+//		}else{
+//			return "Er is een error opgetreden.\n Neem contact op met uw magnefieke ICT'er.\n Klant is geüpdatet";
+//		}
 	}
+	
+	//filterd op 'filterwaarde' in kolom 'filter'
+	//het is veel code maar dit is veel copy-paste om ervoor te zorgen dat de json goed wordt teruggestuurd.
+	//op basis van het gekozen filter.
 	@GET
 	@Path("/filter/{filter}/{filterwaarde}")
 	@Produces("application/json")
@@ -256,6 +278,8 @@ public class InschrijvingResource {
 		}
 		throw new WebApplicationException("Error");
 	}
+	//returnt informatie op basis van de doorgegeven locatieid
+	//naast de teruggegeven informatie rekent dezze methode ook het totale inkomsten bedrag uit, het totale aantal abonnementen.
 	@Path("getInfo/{locid}")
 	@GET
 	@Produces("application/json")
