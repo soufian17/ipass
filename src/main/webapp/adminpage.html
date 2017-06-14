@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<title>Klantbeheer</title>
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+
+</head>
+
+<body>
+	<h1>Klantbeheer</h1>
+	
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    	  <div class="modal-dialog">
+				<div class="loginmodal-container">
+					<h2>Login</h2>
+				  <form id="loginform">
+					<input type="text" name="user" placeholder="Username">
+					<input type="password" name="pass" placeholder="Password">
+					<input type="button" id="login" name="login" class="login loginmodal-button" value="Login">
+				  </form>
+					
+				  <div class="login-help">
+					<a href="#">Register</a> - <a href="#">Forgot Password</a>
+				  </div>
+				</div>
+			</div>
+		  </div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script>
+		if (typeof window.sessionStorage.sessionToken == "undefined") {
+			$("#login-modal").modal();
+		} else {
+			//doStuff
+		}
+        $("#login").click(function(event) {
+			  var data = $("#loginform").serialize();
+
+			  $.post("restservices/authentication", data, function(response) {
+			    window.sessionStorage.setItem("sessionToken", response);
+			    console.log(window.sessionStorage.sessionToken);
+	        	$("#myhiddendiv").hide();
+			  }).fail(function(jqXHR, textStatus, errorThrown) {
+				console.log(window.sessionStorage.sessionToken);
+			    console.log(textStatus);
+			    console.log(errorThrown);
+			  }).success(function(){
+				  loadCountries();
+			  });
+			});
+	</script>
+</body>
+</html>
