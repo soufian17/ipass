@@ -2,10 +2,13 @@ package nl.hu.student.soufian.iPass.webservice;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 import javax.ws.rs.Produces;
@@ -33,5 +36,21 @@ public class LocatieResource {
 		}
 		String jsonStr = JsonArrayBuilder.build().toString();
 		return jsonStr;
+	}
+	@Path("add")
+	@POST
+	@RolesAllowed("admin")
+	public String addLocatie(
+			@FormParam("postcode")String postcode,
+			@FormParam("plaatsnaam")String plaatsnaam,
+			@FormParam("adres")String adres
+			){
+		LocatieDAO ldao = new LocatieDAO();
+		if(ldao.addLocatie(postcode,plaatsnaam,adres)){
+		return "Succes!";
+		}else{
+			return "Niet gelukt!";
+		}
+		
 	}
 }

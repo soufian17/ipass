@@ -1,19 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<title>Klantbeheer</title>
 <head>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="stylesheet.css">
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="metisMenu.min.css" rel="stylesheet">
+    <link href="sb-admin-2.css" rel="stylesheet">
+    <link href="morris.css" rel="stylesheet">
+    <link href="miniboot.css" rel="stylesheet">
+    
 </head>
 
 <body>
-	<h1>Klantbeheer</h1>
-	<div id="emptydiv"></div>
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Admin Klantbeheer</a>
+            </div>
+
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                       
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Homepage</a>
+                        </li>
+                        <li>
+                        	<a id="try" class="fa fa-dashboard fa-fw"> login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+</div>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Dashboard</h1>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Abonnement toevoegen</a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse in">
+        <div class="panel-body">
+<form id="Abonnement">
+  <div class="form-group">
+    <label for="naam">Naam:</label>
+    <input name="naam" type="text" class="form-control" id="naam">
+  </div>
+  <div class="form-group">
+    <label for="prijs">Prijs:</label>
+    <input min="0.00" max="10000.00" name="prijs" type="number" step=0.01 class="form-control" id="prijs">
+  </div>
+  <button type="button" id="addA" class="btn btn-default">Voeg toe</button>
+</form>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Locatie toevoegen</a>
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">
+<form id="Locatie">
+  <div class="form-group">
+    <label for="naam">Postcode:</label>
+    <input name="postcode" type="text" class="form-control" id="postcode">
+  </div>
+  <div class="form-group">
+    <label for="plaatsnaam">Plaatsnaam:</label>
+    <input name="plaatsnaam" type="text"  class="form-control" id="plaatsnaam">
+  </div>
+    <div class="form-group">
+    <label for="adres">Adres:</label>
+    <input name="adres" type="text" class="form-control" id="adres">
+  </div>
+  <button type="button" id="addL" class="btn btn-default">Voeg toe</button>
+</form>
+        </div>
+      </div>
+    </div>
+    
+  </div> 
+</div>
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     	  <div class="modal-dialog">
 				<div class="loginmodal-container">
@@ -31,33 +124,61 @@
 			</div>
 		  </div>
   <div id="alert-div" class="alert alert-info alert-dismissable animated fadeInLeft hidden2">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">Ã—</a>
     <label id="alert-label"></label>
   </div>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-	<script>
-		if (typeof window.sessionStorage.sessionToken == "undefined") {
-			$("#login-modal").modal();
-		} else {
-			//doStuff
-		}
-        $("#login").click(function(event) {
+    
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="metisMenu.min.js"></script>
+    <script src="raphael.min.js"></script>
+    <script src="morris.min.js"></script>
+    <script src="sb-admin-2.js"></script>
+<script>
+$("#login-modal").modal();
+
+$("#try").click(function (){
+	$("#login-modal").modal();
+})
+
+$("#addA").click(function (){
+	var data = $("#Abonnement").serialize();
+	
+})
+$("#login").click(function(event) {
 			  var data = $("#loginform").serialize();
-			  
 			  $.post("restservices/authentication", data, function(response) {
 			    window.sessionStorage.setItem("sessionToken", response);
-			    console.log(window.sessionStorage.sessionToken);
-	        	$("#myhiddendiv").hide();
 			  }).fail(function(jqXHR, textStatus, errorThrown) {
 				console.log(window.sessionStorage.sessionToken);
 			    console.log(textStatus);
 			    console.log(errorThrown);
 			  }).success(function(){
-				  $("#emptydiv").html("je bent ingelogd")
+				  console.log("succes")
 			  });
 			});
-	</script>
+
+$("#addL").click(function (){
+	var data = $("#Locatie").serialize();
+    var uri = "/restservices/locatie/add" 
+	    $.ajax(
+	    	uri, { 
+	        type: "post", 
+	        data: data, 
+            beforeSend: function (xhr) {
+                var token = window.sessionStorage.getItem("sessionToken");
+                xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
+            },
+	        success: function(response) {
+	            console.log("succes");
+	        },
+	        error: function(response) {
+	        	console.log("error");
+	        }
+	    }); 
+})
+</script>
 </body>
+
 </html>

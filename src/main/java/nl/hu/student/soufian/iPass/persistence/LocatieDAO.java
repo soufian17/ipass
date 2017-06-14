@@ -102,5 +102,19 @@ public class LocatieDAO extends BaseDAO{
 		return null;
 	}
 	}
+	public boolean addLocatie(String postcode, String plaatsnaam, String adres) {
+		try(Connection con = super.getConnection()){
+			String q = "insert into locatie (postcode,plaatsnaam,adres) values (?,?,?)";
+			PreparedStatement ps = con.prepareStatement(q);
+			ps.setString(1, postcode);
+			ps.setString(2, plaatsnaam);
+			ps.setString(3, adres);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }
