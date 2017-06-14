@@ -31,6 +31,9 @@ public class LocatieDAO extends BaseDAO{
 			String postcode = rs.getString("postcode");
 			int locID = rs.getInt("LocatieID");
 			Locatie loc = new Locatie(plaatsnaam, postcode, adr,locID);
+			con.close();
+			ps.close();
+			rs.close();
 			return loc;
 		}catch(Exception e){
 			return null;
@@ -51,6 +54,9 @@ public class LocatieDAO extends BaseDAO{
 				Locatie loc = new Locatie(plaatsnaam, postcode, adres, locID);
 				allelocaties.add(loc);
 			}
+			con.close();
+			rs.close();
+			ps.close();
 			return allelocaties;
 		}catch(Exception e){
 			return null;
@@ -77,6 +83,9 @@ public class LocatieDAO extends BaseDAO{
 			Locatie loc = new Locatie(plaatsnaam, postcode, adres, locID);
 			allelocaties.add(loc);
 		}
+		con.close();
+		ps.close();
+		rs.close();
 		return allelocaties;
 	}catch(Exception e){
 		return null;
@@ -97,6 +106,9 @@ public class LocatieDAO extends BaseDAO{
 		String postcode = rs.getString("postcode");
 		int locID = rs.getInt("LocatieID");
 		Locatie loc = new Locatie(plaatsnaam, postcode, adr,locID);
+		con.close();
+		rs.close();
+		ps.close();
 		return loc;
 	}catch(Exception e){
 		return null;
@@ -110,6 +122,8 @@ public class LocatieDAO extends BaseDAO{
 			ps.setString(2, plaatsnaam);
 			ps.setString(3, adres);
 			ps.executeUpdate();
+			ps.close();
+			con.close();
 			return true;
 		}catch(Exception e){
 			e.printStackTrace();

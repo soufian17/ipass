@@ -37,7 +37,8 @@ public class InschrijvingDAO extends BaseDAO{
 			ps.setInt(2, locatie.getLocatieID());
 			ps.setInt(3, i.getKlant().getId_());
 			ps.executeUpdate();
-
+			ps.close();
+			con.close();
 			return true;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -57,6 +58,8 @@ public class InschrijvingDAO extends BaseDAO{
 		ps.setString(2, abonnementnaam);
 		ps.setInt(3, locID);
 		ps.executeUpdate();
+		ps.close();
+		con.close();
 		return true;
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -106,6 +109,9 @@ public class InschrijvingDAO extends BaseDAO{
 			Locatie locatie = new Locatie(plaatsnaam, postcode, adres, Locatieid);
 			Abonnement abonnement = new Abonnement(abbonementnaam, prijs);
 			Inschrijving inschrijving = new Inschrijving(klant, locatie, abonnement);
+			con.close();
+			rs.close();
+			ps.close();
 			return inschrijving;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -122,6 +128,9 @@ public class InschrijvingDAO extends BaseDAO{
 			ps.setString(2, inschrijving.getAbbonement_().getAbbonementnaam());
 			ps.setInt(3, inschrijving.getLocatie().getLocatieID());
 			ps.executeUpdate();
+			ps.close();
+			con.close();
+			
 			return inschrijving;
 			}catch(Exception ex){
 				ex.printStackTrace();
@@ -143,7 +152,9 @@ public class InschrijvingDAO extends BaseDAO{
 
 		ps.executeUpdate();
 		ps2.executeUpdate();
-
+		ps.close();
+		ps2.close();
+		con.close();
 		return true;
 		}catch(Exception ex){
 			return false;
@@ -197,6 +208,7 @@ public class InschrijvingDAO extends BaseDAO{
 			}
 			stmt.close();
 			con.close();
+			rs.close();
 			return alleinschrijvingen;
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -251,6 +263,7 @@ public class InschrijvingDAO extends BaseDAO{
 		}
 		stmt.close();
 		con.close();
+		rs.close();
 		return alleinschrijvingen;
 	}catch(Exception ex){
 		ex.printStackTrace();
@@ -304,6 +317,7 @@ public class InschrijvingDAO extends BaseDAO{
 		}
 		stmt.close();
 		con.close();
+		rs.close();
 		return alleinschrijvingen;
 	}catch(Exception ex){
 		ex.printStackTrace();
@@ -358,6 +372,7 @@ public class InschrijvingDAO extends BaseDAO{
 		}
 		stmt.close();
 		con.close();
+		rs.close();
 		return alleinschrijvingen;
 	}catch(Exception ex){
 		ex.printStackTrace();
@@ -411,6 +426,7 @@ public class InschrijvingDAO extends BaseDAO{
 		}
 		stmt.close();
 		con.close();
+		rs.close();
 		return alleinschrijvingen;
 	}catch(Exception ex){
 		ex.printStackTrace();
@@ -442,6 +458,9 @@ public class InschrijvingDAO extends BaseDAO{
 			aantal = rs.getInt("aantal");
 			lijst.add(sum+"---"+prijs+"---"+typeabonnement+"---"+aantal);
 		}
+		con.close();
+		rs.close();
+		ps.close();
 		return lijst;
 		}catch(Exception ex){
 			ex.printStackTrace();

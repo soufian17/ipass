@@ -30,6 +30,8 @@ public class KlantDAO extends BaseDAO{
 		ps.setString(6, email);
 		ps.setString(7, adres);
 		ps.executeUpdate();
+		ps.close();
+		con.close();
 		return true;
 		}catch(Exception e){
 			return false;
@@ -44,6 +46,8 @@ public class KlantDAO extends BaseDAO{
 		PreparedStatement ps = con.prepareStatement(Querry);
 		ps.setInt(1, id);
 		ps.executeUpdate();
+		ps.close();
+		con.close();
 		return true;
 		}catch(Exception ex){
 			return false;
@@ -62,8 +66,9 @@ public class KlantDAO extends BaseDAO{
 		ps.setString(5, klant.getWoonplaats_());
 		ps.setString(6, klant.getMail_());
 		ps.setString(7, klant.getAdres_());
-
 		ps.executeUpdate();
+		ps.close();
+		con.close();
 		return true;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -100,6 +105,7 @@ public class KlantDAO extends BaseDAO{
 		}
 		rs.close();
 		stmt.close();
+		con.close();
 		return alleklanten;
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -125,6 +131,7 @@ public class KlantDAO extends BaseDAO{
 			String mail = rs.getString("email");
 			rs.close();
 			ps.close();
+			con.close();
 			Klant klant = new Klant(voornaam, achternaam, ID, bankrek, telefoonnummer, woonplaats, adres, mail);
 			return klant;
 		}catch(Exception e){
@@ -150,6 +157,7 @@ public class KlantDAO extends BaseDAO{
 			String mail = rs.getString("email");
 			rs.close();
 			ps.close();
+			con.close();
 			Klant klant = new Klant(voornaam, achternaam, ID, bankrek, telefoonnummer, woonplaats, adres, mail);
 			return klant;
 		}catch(Exception e){
@@ -173,6 +181,8 @@ public class KlantDAO extends BaseDAO{
 			ps.setString(7, mail);
 			ps.setInt	(8, id);
 			ps.executeUpdate();
+			ps.close();
+			con.close();
 		return true;
 		}catch(Exception ex){
 			return false;

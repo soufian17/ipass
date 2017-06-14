@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO extends BaseDAO {
+	
+	
 	public String findRoleForUsernameAndPassword(String username, String password) {
 		String role = null;
 		String query = "SELECT role FROM useraccount WHERE username = ? AND password = ?";
@@ -19,11 +21,12 @@ public class UserDAO extends BaseDAO {
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
 				role = rs.getString("role");
-
+			con.close();
+			pstmt.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
-
 		return role;
 	}
+	
 }

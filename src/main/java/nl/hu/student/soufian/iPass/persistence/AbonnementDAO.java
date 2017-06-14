@@ -41,6 +41,9 @@ public class AbonnementDAO extends BaseDAO{
 			String abonnementtype = rs.getString("typeabonnement");
 			double prijs = rs.getDouble("prijs");
 			Abonnement abbo = new Abonnement(abonnementtype, prijs);
+			rs.close();
+			ps.close();
+			con.close();
 			return abbo;
 		}catch(Exception e){
 			return null;
@@ -55,6 +58,8 @@ public class AbonnementDAO extends BaseDAO{
 		PreparedStatement ps = con.prepareStatement(Querry);
 		ps.setString(1, naam);
 		ps.executeUpdate();
+		ps.close();
+		con.close();
 		return true;
 		}catch(Exception e){
 			return false;
@@ -80,6 +85,7 @@ public class AbonnementDAO extends BaseDAO{
 		}
 		rs.close();
 		stmt.close();
+		con.close();
 		return alleabbo;
 		}catch(Exception e){
 			return null;
@@ -105,6 +111,7 @@ public class AbonnementDAO extends BaseDAO{
 		}
 		rs.close();
 		stmt.close();
+		con.close();
 		return alleabbo;
 		}catch(Exception e){
 			return null;
