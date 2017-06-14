@@ -24,7 +24,10 @@
 package nl.hu.student.soufian.iPass.persistence;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
+import java.sql.DriverManager;
+
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
@@ -57,11 +60,25 @@ public class BaseDAO {
 		}
 	}
 
-	protected final Connection getConnection() {
-		try {
-			return connectionPool.getConnection();
-		} catch (Exception ex) {
-			throw new RuntimeException(ex);
+//	protected final Connection getConnection() {
+//		try {
+//			return connectionPool.getConnection();
+//		} catch (Exception ex) {
+//			throw new RuntimeException(ex);
+//		}
+//	}
+	private static Connection getConnection() {
+		try{
+	    URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+	    String username = dbUri.getUserInfo().split(":")[0];
+	    String password = dbUri.getUserInfo().split(":")[1];
+	    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+
+	    return DriverManager.getConnection(dbUrl, username, password);
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
