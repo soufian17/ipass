@@ -139,8 +139,8 @@ public class InschrijvingDAO extends BaseDAO{
 	}
 	//verwijder inschrijving met id 'id'(verwijderd ook de bijbehordende klant)
 	public boolean removeInschrijving(int id){
-		try{
-			Connection con = super.getConnection();
+		try(Connection con = super.getConnection()){
+		
 		String Querry = "delete from inschrijving where klant_id=?";
 		String Querry2 = "delete from klant where id = ?";
 		
