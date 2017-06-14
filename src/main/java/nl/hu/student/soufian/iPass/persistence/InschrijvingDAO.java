@@ -206,9 +206,9 @@ public class InschrijvingDAO extends BaseDAO{
 				prijs = 			rs.getDouble("prijs");
 				alleinschrijvingen.add(new Inschrijving(new Klant(voornaam, achternaam, id, bankrekeningnummer, telefoonnummer, woonplaatsklant, adresklant, email),new Locatie(plaatsnaam, postcode, adres, Locatieid), new Abonnement(abbonementnaam, prijs)));
 			}
+			rs.close();
 			stmt.close();
 			con.close();
-			rs.close();
 			return alleinschrijvingen;
 		}catch(Exception ex){
 			ex.printStackTrace();
