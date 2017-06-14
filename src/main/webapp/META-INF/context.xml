@@ -5,6 +5,6 @@
  driverClassName="org.postgresql.Driver"
  auth="Container"
  type="javax.sql.DataSource"
- username="postgres"
- password="Dikkeshit1" />
+ username="tipgcwodushqmb"
+ password="a19a6441ca89377fb92c59d9b9c7b13a6ad8c63429c164277a3ba536c5352848" />
 </Context>
