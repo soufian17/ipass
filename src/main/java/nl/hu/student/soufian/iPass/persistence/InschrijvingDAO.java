@@ -209,6 +209,11 @@ public class InschrijvingDAO extends BaseDAO{
 			rs.close();
 			stmt.close();
 			con.close();
+			if(con.isClosed()){
+				System.out.println("connection is closed now");
+			}else{
+				System.out.println("connection is open");
+			}
 			return alleinschrijvingen;
 		}catch(Exception ex){
 			ex.printStackTrace();
