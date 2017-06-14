@@ -13,7 +13,7 @@
 
 <body>
 	<h1>Klantbeheer</h1>
-	
+	<div id="emptydiv"></div>
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     	  <div class="modal-dialog">
 				<div class="loginmodal-container">
@@ -21,7 +21,7 @@
 				  <form id="loginform">
 					<input type="text" name="username" placeholder="Username">
 					<input type="password" name="password" placeholder="Password">
-					<input type="button" id="login" name="login" class="login loginmodal-button" value="Login">
+					<input type="button" id="login" name="login" data-dismiss="modal"  class="login loginmodal-button" value="Login">
 				  </form>
 					
 				  <div class="login-help">
@@ -30,7 +30,10 @@
 				</div>
 			</div>
 		  </div>
-
+  <div id="alert-div" class="alert alert-info alert-dismissable animated fadeInLeft hidden2">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <label id="alert-label"></label>
+  </div>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -52,7 +55,7 @@
 			    console.log(textStatus);
 			    console.log(errorThrown);
 			  }).success(function(){
-				  loadCountries();
+				  $("#emptydiv").html("je bent ingelogd")
 			  });
 			});
 	</script>
