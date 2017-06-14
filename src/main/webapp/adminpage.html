@@ -19,8 +19,8 @@
 				<div class="loginmodal-container">
 					<h2>Login</h2>
 				  <form id="loginform">
-					<input type="text" name="user" placeholder="Username">
-					<input type="password" name="pass" placeholder="Password">
+					<input type="text" name="username" placeholder="Username">
+					<input type="password" name="password" placeholder="Password">
 					<input type="button" id="login" name="login" class="login loginmodal-button" value="Login">
 				  </form>
 					
@@ -42,7 +42,7 @@
 		}
         $("#login").click(function(event) {
 			  var data = $("#loginform").serialize();
-
+			  
 			  $.post("restservices/authentication", data, function(response) {
 			    window.sessionStorage.setItem("sessionToken", response);
 			    console.log(window.sessionStorage.sessionToken);
