@@ -139,8 +139,8 @@ public class InschrijvingDAO extends BaseDAO{
 	}
 	//verwijder inschrijving met id 'id'(verwijderd ook de bijbehordende klant)
 	public boolean removeInschrijving(int id){
-		try(Connection con = super.getConnection()){
-		
+		try{
+			Connection con = super.getConnection();
 		String Querry = "delete from inschrijving where klant_id=?";
 		String Querry2 = "delete from klant where id = ?";
 		
@@ -209,11 +209,6 @@ public class InschrijvingDAO extends BaseDAO{
 			rs.close();
 			stmt.close();
 			con.close();
-			if(con.isClosed()){
-				System.out.println("connection is closed now");
-			}else{
-				System.out.println("connection is open");
-			}
 			return alleinschrijvingen;
 		}catch(Exception ex){
 			ex.printStackTrace();
