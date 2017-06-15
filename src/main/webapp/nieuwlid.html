@@ -62,8 +62,13 @@
           <button type="button" id="Def" 	class="btn-default btn-ok"data-dismiss="modal" >Voeg een ander lid toe	</button>
         </div>
       </div>
-      
+  
     </div>
+  </div>
+  
+    <div id="alert-div" class="alert alert-info alert-dismissable animated fadeInLeft hidden2">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <label id="alert-label"></label>
   </div>
   
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -115,7 +120,11 @@
         });
 		}else{
 			$("#alert-label").html("Je hebt niet alle velden ingevuld");
-    		$("#alert-div").show();
+    		$("#alert-div").fadeIn("slow");
+        	setTimeout(function() { 
+	        	$("#alert-div").fadeOut("slow");
+	        	$("#alert-div").hide(500);
+        	}, 1100);
 		}
 	}
 	$("#mybutton").click(Inschrijven);

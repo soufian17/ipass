@@ -212,6 +212,7 @@ $("#login").click(function(event) {
 $("#addL").click(function (){
 	var data = $("#Locatie").serialize();
     var uri = "/restservices/locatie/add";
+    if($("#postcode").val()!=="" && $("#plaatsnaam").val()!==""&& $("#adres").val()!==""){
 	    $.ajax(
 	    	uri, { 
 	        type: "post", 
@@ -237,6 +238,14 @@ $("#addL").click(function (){
 	        	}, 1100);
 	        }
 	    }); 
+    }else{
+        $("#alert-label").html("Vul alle velden in!");
+        $("#alert-div").fadeIn("slow");
+    	setTimeout(function() { 
+        	$("#alert-div").fadeOut("slow");
+        	$("#alert-div").hide(500);
+    	}, 1100);
+    }
 })
 </script>
 </body>
