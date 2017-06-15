@@ -173,6 +173,7 @@ $("#addA").click(function (){
 	
 })
 $("#login").click(function(event) {
+	var uri = "restservices/authentication";
 	var data = $("#loginform").serialize();
 		 $.ajax(
 	    	uri, { 
