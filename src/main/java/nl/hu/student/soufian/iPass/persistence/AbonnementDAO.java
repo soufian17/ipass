@@ -24,6 +24,7 @@ public class AbonnementDAO extends BaseDAO{
 		ps.setString(1, naam);
 		ps.setDouble(2, prijs);
 		ps.executeUpdate();
+		ps.close();
 		con.close();
 		return true;
 	}catch(Exception e){

@@ -144,18 +144,34 @@ $("#try").click(function (){
 
 $("#addA").click(function (){
 	var data = $("#Abonnement").serialize();
+	var uri = "/restservices/abonnement/add";
+    $.ajax(
+    	uri, { 
+        type: "post", 
+        data: data, 
+           beforeSend: function (xhr) {
+               var token = window.sessionStorage.getItem("sessionToken");
+               xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
+           },
+        success: function(response) {
+            console.log("succes");
+        },
+        error: function(response) {
+        	console.log("error");
+        }
+    }); 
 	
 })
 $("#login").click(function(event) {
-			  var data = $("#loginform").serialize();
-			  $.post("restservices/authentication", data, function(response) {
-			    window.sessionStorage.setItem("sessionToken", response);
-			  })
-			});
+	var data = $("#loginform").serialize();
+	$.post("restservices/authentication", data, function(response) {
+		window.sessionStorage.setItem("sessionToken", response);
+	})
+	});
 
 $("#addL").click(function (){
 	var data = $("#Locatie").serialize();
-    var uri = "/restservices/locatie/add" 
+    var uri = "/restservices/locatie/add";
 	    $.ajax(
 	    	uri, { 
 	        type: "post", 
