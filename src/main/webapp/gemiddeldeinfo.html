@@ -72,16 +72,39 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">Titel</h1>
                 </div>
-                <select class="abo-left" id="selection" name="locatie">
+                <select class="form-control" id="selection" name="locatie">
 				</select>
-                <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+
+
+
+<div class="panel-body">
+                            <ul class="chat">
+                                <li class="left clearfix">
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class="pull-right text-muted">
+                                            </small>
+                                        </div>
+                                        <p>
+                                        Totale Inkomsten : <label id="totaal"></label><br>
+                                        Totale Abonnementen : <label id="abo"></label>
+                                        </p>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+
+
+
+
+
+				
+                <div id="container"></div>
             </div>
 </div>
 
-  <div id="alert-div" class="alert alert-info alert-dismissable animated fadeInLeft hidden2">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-    <label id="alert-label"></label>
-  </div>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
     
@@ -105,46 +128,51 @@ function loadLocaties(){
 };
 loadLocaties();
 $("#selection").on("input", function() {
+	var processed_json = new Array();  
 	$.ajax({
         url: "restservices/inschrijvingen/getInfo/"+this.value,
         method: "GET",
         success: function (data) {
-        	options.series[0].setData(data);
+        	$.each(data.abonnementen,function(key,value){
+                processed_json.push({"y": parseInt(value.aantal),"name": value.naam});
+            })
+            Highcharts.chart('container', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Informatie'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'abonnementen',
+                    colorByPoint : true,
+                    data: processed_json
+                }]
+            });
+        	$("#abo").html(data.aantalabonnementen);
+        	$("#totaal").html("€ "+data.inkomsten);
 		}
     });
 	
-});
-Highcharts.chart('container', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Informatie'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'abonnementen',
-        colorByPoint : true,
-        data: []
-    }]
 });
 
 
