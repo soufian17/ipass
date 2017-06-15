@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<title>Klantbeheer</title>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<h1><i onclick="goBack()" class="fa fa-angle-double-left  fa-pull-right ic"></i> Klantbeheer </h1>
+ <br/>
+  <table  id="leden" class="table-fill">
+  </table>
+  <div class="div main" id="myhiddendiv">
+<form  id="klantform">
+<input class="btn2" type="button" id="put" value="Voer door" />
+<br/><br>
+<input class="btn2" type="button" id="cancel" value="Cancel" />
+<br></br>
+ <label >ID:</label>
+<input class="text" type="text" placeholder="ID" id="id" name="id" readonly/> 
+ <br></br>
+ <label >Voornaam:</label>
+<input class="text" type="text" placeholder="Voornaam" id="voornaam" name="voornaam" /> 
+ <br></br>
+ <label >Achternaam:</label>
+<input class="text" type="text" placeholder="Achternaam" id="achternaam" name="achternaam" /> 
+ <br></br>
+ <label >Bankrekeningnummer:</label>
+<input  class="text" type="text" placeholder="Bankrekeningnummer" id="bankrekeningnummer" name="bankrekeningnummer" /> 
+ <br></br>
+ <label >telefoonnummer:</label>
+<input  class="text" type="text" placeholder="Telefoonnummer" id="telefoonnummer" name="telefoonnummer" /> 
+ <br></br>
+ <label >E-mail:</label>
+<input  class="text" type="text" placeholder="E-mail" id="email" name="email" /> 
+ <br></br>
+ <label >Woonplaats:</label>
+<input  class="text" type="text" placeholder="Woonplaats" id="woonplaats" name="woonplaats" /> 
+ <br></br>
+  <label >Adres:</label>
+<input  class="text" type="text" placeholder="Adres" id="adres" name="adres" /> 
+ <br></br>
+
+
+</form>
+ <label >Locatie:</label>
+<select id="selection" class="select" name="locatie" form="klantform">
+</select>
+ <label >Abonnement:</label>
+ <select id="selectionab" class="select" name="abonnementnaam" form="klantform">
+</select>
+</div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script> 
+function loadLeden(){
+    $.ajax({
+        url: "restservices/inschrijvingen/all",
+        method: "GET",
+        success: function (data) {
+        	$("#leden").html("<tr class'tr'>	<th>ID</th> <th>Voornaam</th> <th>Achternaam</th> <th>Abonnement</th> <th>Locatie</th> </tr>");
+        	$.each(data.array,function(key,value){
+        		$('#leden > tbody:last-child').append('<tr onclick=trgeklikt("'+value.id+'") class="tr" id="'+value.id+'" > <td >'+value.id+"</td> <td>"+value.voornaam+"</td> <td>"+value.achternaam+"</td> <td>"+value.abonnement+"</td><td>"+value.locatie+"</td> </tr>");
+        	})
+			}
+    });
+};
+loadLeden();
+
+$("#put").click(function() {
+   /* var uri = "restservices/inschrijvingen/update/" + $("#id").val();
+    $.ajax(uri, { 
+        type: "PUT", 
+        data: $("#klantform").serialize(), 
+
+        success: function(response) {
+            alert("Wijzgingen doorgevoerd");
+            $("#myhiddendiv").hide();
+        },
+    });*/
+    console.log($("#klantform").serialize());
+	$.ajax({
+        url: "restservices/inschrijvingen/update/"+$("#id").val(),
+        data: $("#klantform").serialize(), 
+        method: "PUT",
+        success: function (data) {
+        	alert(data);
+        	$("#myhiddendiv").hide();
+			$("#id").val("");
+        	$("#voornaam").val("");
+        	$("#achternaam").val("");
+        	$("#bankrekeningnummer").val("");
+        	$("#telefoonnummer").val("");
+        	$("#email").val("");
+        	$("#adres").val("");
+        	$("#woonplaats").val("");
+		},
+	fail:function (data){
+		console.log(data);
+	}
+    });
+});
+function trgeklikt(code){
+	$("#selection").html("");
+	$("#selectionab").html("");
+    $.ajax({
+        url: "restservices/inschrijvingen/getById/"+code,
+        method: "GET",
+        success: function (value) {
+				$("#id").val(value.id);
+	        	$("#voornaam").val(value.voornaam);
+	        	$("#achternaam").val(value.achternaam);
+	        	$("#bankrekeningnummer").val(value.bankrekeningnummer);
+	        	$("#telefoonnummer").val(value.telefoonnummer);
+	        	$("#email").val(value.email);
+	        	$("#adres").val(value.adres);
+	        	$("#woonplaats").val(value.woonplaats);
+	        	$("#selectionab").append("<option value='"+value.abonnement+"'>"+value.abonnement+"</option>");
+	        	$("#selection").append("<option value='"+value.locatieid+"'>"+value.locatie+"</option>");
+	        	$.each(value.restabonnementen,function (key,value){
+		        	$("#selectionab").append("<option value='"+value+"'>"+value+"</option>");
+	        	})
+	        	$.each(value.restlocaties,function (key,value){
+		        	$("#selection").append("<option value='"+value.locid+"'>"+value.locnaam+"</option>");
+	        	})
+		}
+    });
+    
+	$("#myhiddendiv").show();
+
+};
+$("#cancel").click(function(){
+	$("#myhiddendiv").hide();
+});
+function goBack() {
+    window.history.back()
+}
+
+</script>
+</body>
+</html>

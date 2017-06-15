@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<title>Klantbeheer</title>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<h1><i onclick="goBack()" class="fa fa-angle-double-left fa-pull-right ic"></i> Klantbeheer </h1>
+
+ <label class="abo-left">Locatie:</label>
+<select class="abo-left" id="selection" name="locatie">
+</select>
+<br></br>
+<div class="div-avg">
+<label class="abo-left">Aantal abonnementen:</label> <label id="aantalabonnementen" class="heavy"></label>
+<br></br>
+<div id="abonnement"></div>
+<br></br>
+<label class="abo-left">Totale Inkomsten per maand:</label> <label id="inkomsten" class="heavy"></label> <br></br>
+</div>
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script> 
+function loadLocaties(){
+	$.ajax({
+        url: "restservices/locatie/all",
+        method: "GET",
+        success: function (data) {
+        	$.each(data,function(key,value){
+        		$("#selection").append("<option value='"+value.locatieid+"'>"+value.adres+" - "+value.plaatsnaam+"</option>");
+        	})
+		}
+    });
+};
+loadLocaties();
+$("#selection").on("input", function() {
+	$.ajax({
+        url: "restservices/inschrijvingen/getInfo/"+this.value,
+        method: "GET",
+        success: function (data) {
+        	$("#abonnement").html("");
+        	$("#inkomsten").html("");
+        	$("#aantalabonnementen").html(data.aantalabonnementen);
+        	$.each(data.abonnementen , function (key,value){
+        		$("#abonnement").append("<label  class='abo-left heavy'>"+value.naam+"</label> <label class='abo-middle'>abonnees:		</label> <label class='abo-right heavy'>"+value.aantal+"</label> <br>");
+        	})
+        	$("#inkomsten").html("€"+data.inkomsten);
+		}
+    });
+	
+});
+
+function goBack() {
+    window.history.back()
+}
+</script>
+</body>
+</html>
