@@ -155,17 +155,17 @@ $("#addA").click(function (){
            },
         success: function(response) {
             $("#alert-label").html(response);
-            $("#alert-div").show();
+            $("#alert-div").fadeIn("slow");
         	setTimeout(function() { 
-	        	$("#alert-div").fadeTo(500, 0.2);
+	        	$("#alert-div").fadeOut("slow");
 	        	$("#alert-div").hide(500);
         	}, 1100);
         },
         error: function(response) {
             $("#alert-label").html(response);
-            $("#alert-div").show();
+            $("#alert-div").fadeIn("slow");
         	setTimeout(function() { 
-	        	$("#alert-div").fadeTo(500, 0.2);
+	        	$("#alert-div").fadeOut("slow");
 	        	$("#alert-div").hide(500);
         	}, 1100);
         }
@@ -192,17 +192,17 @@ $("#addL").click(function (){
             },
 	        success: function(response) {
 	            $("#alert-label").html(response);
-	            $("#alert-div").show();
+	            $("#alert-div").fadeIn("slow");
 	        	setTimeout(function() { 
-		        	$("#alert-div").fadeTo(500, 0.2);
+		        	$("#alert-div").fadeOut("slow");
 		        	$("#alert-div").hide(500);
 	        	}, 1100);
 	        },
 	        error: function(response) {
 	            $("#alert-label").html(response);
-	            $("#alert-div").show();
+	            $("#alert-div").fadeIn("slow");
 	        	setTimeout(function() { 
-		        	$("#alert-div").fadeTo(500, 0.2);
+		        	$("#alert-div").fadeOut("slow");
 		        	$("#alert-div").hide(500);
 	        	}, 1100);
 	        }
