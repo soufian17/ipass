@@ -40,8 +40,8 @@ public class AbonnementResource {
 	@POST
 	@RolesAllowed("admin")
 	public String addLocatie(
-			@FormParam("postcode")String naam,
-			@FormParam("plaatsnaam")double prijs
+			@FormParam("naam")String naam,
+			@FormParam("prijs")double prijs
 			){
 		if(prijs==0.0){
 			return "Waarde is niet geldig";
