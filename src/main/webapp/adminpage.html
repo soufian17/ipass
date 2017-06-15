@@ -154,10 +154,12 @@ $("#addA").click(function (){
                xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
            },
         success: function(response) {
-            console.log("succes");
+            $("#alert-label").html(response);
+            $("#alert-div").show();
         },
         error: function(response) {
-        	console.log("error");
+            $("#alert-label").html(response);
+            $("#alert-div").show();
         }
     }); 
 	
@@ -181,10 +183,12 @@ $("#addL").click(function (){
                 xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
             },
 	        success: function(response) {
-	            console.log("succes");
+	            $("#alert-label").html(response);
+	            $("#alert-div").show();
 	        },
 	        error: function(response) {
-	        	console.log("error");
+	            $("#alert-label").html(response);
+	            $("#alert-div").show();
 	        }
 	    }); 
 })

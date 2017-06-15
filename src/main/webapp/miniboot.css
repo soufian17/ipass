@@ -94,3 +94,9 @@
 .login-help{
   font-size: 12px;
 }
+.hidden2 {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+}

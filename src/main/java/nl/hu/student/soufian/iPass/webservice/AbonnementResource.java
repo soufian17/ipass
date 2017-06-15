@@ -43,15 +43,15 @@ public class AbonnementResource {
 			@FormParam("naam")String naam,
 			@FormParam("prijs")double prijs
 			){
-		if(prijs==0.0){
+		if(prijs<=0.0 || naam=="" || naam==null){
 			return "Waarde is niet geldig";
-		}
+		}else{
 		AbonnementDAO adao = new AbonnementDAO();
 		if(adao.addAbonnement(naam, prijs)){
 		return "Succes!";
 		}else{
 			return "Niet gelukt!";
 		}
-		
+		}
 	}
 }

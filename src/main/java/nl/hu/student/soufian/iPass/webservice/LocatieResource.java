@@ -45,12 +45,15 @@ public class LocatieResource {
 			@FormParam("plaatsnaam")String plaatsnaam,
 			@FormParam("adres")String adres
 			){
+		if(postcode=="" || plaatsnaam=="" || adres=="" || postcode==null || plaatsnaam==null || adres==null){
+			return "Doorgegeven waardes kloppen niet!";
+		}else{
 		LocatieDAO ldao = new LocatieDAO();
 		if(ldao.addLocatie(postcode,plaatsnaam,adres)){
 		return "Succes!";
 		}else{
 			return "Niet gelukt!";
 		}
-		
+		}
 	}
 }
