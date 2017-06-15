@@ -162,7 +162,7 @@ $("#addA").click(function (){
         	}, 1100);
         },
         error: function(response) {
-            $("#alert-label").html(response);
+            $("#alert-label").html("Niet gelukt");
             $("#alert-div").fadeIn("slow");
         	setTimeout(function() { 
 	        	$("#alert-div").fadeOut("slow");
@@ -229,7 +229,7 @@ $("#addL").click(function (){
 	        	}, 1100);
 	        },
 	        error: function(response) {
-	            $("#alert-label").html(response);
+	            $("#alert-label").html("Niet gelukt!");
 	            $("#alert-div").fadeIn("slow");
 	        	setTimeout(function() { 
 		        	$("#alert-div").fadeOut("slow");
