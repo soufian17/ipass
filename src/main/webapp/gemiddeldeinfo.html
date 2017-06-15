@@ -1,29 +1,97 @@
 <!DOCTYPE html>
-<html>
-<title>Klantbeheer</title>
-<head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<html lang="en">
 
-<link rel="stylesheet" type="text/css" href="stylesheet.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="metisMenu.min.css" rel="stylesheet">
+    <link href="sb-admin-2.css" rel="stylesheet">
+    <link href="morris.css" rel="stylesheet">
+    <link href="miniboot.css" rel="stylesheet">    
+    
 </head>
 <body>
-<h1><i onclick="goBack()" class="fa fa-angle-double-left fa-pull-right ic"></i> Klantbeheer </h1>
+    <div id="wrapper">
 
- <label class="abo-left">Locatie:</label>
-<select class="abo-left" id="selection" name="locatie">
-</select>
-<br></br>
-<div class="div-avg">
-<label class="abo-left">Aantal abonnementen:</label> <label id="aantalabonnementen" class="heavy"></label>
-<br></br>
-<div id="abonnement"></div>
-<br></br>
-<label class="abo-left">Totale Inkomsten per maand:</label> <label id="inkomsten" class="heavy"></label> <br></br>
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Klantbeheer</a>
+            </div>
+
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                       
+                        <li>
+                            <a href="adminpage.html"><i class="fa fa-dashboard fa-fw"></i> Admin</a>
+                        </li>
+                        <li>
+                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Homepage</a>
+                        </li>
+                        <li>
+                             <a href="overzichtalleleden.html"><i class="fa fa-dashboard fa-fw"></i> Overzicht Leden</a>
+                        </li>
+                        <li>
+                        	<a href="nieuwlid.html"><i class="fa fa-dashboard fa-fw"></i> Nieuw Lid Aanmelden</a>
+                        </li>
+                         <li>
+                        	<a href="klantinformatie.html"><i class="fa fa-dashboard fa-fw"></i> Lidinformatie </a>
+                        </li>
+                        <li>
+                        	<a href="lidverwijderen.html"><i class="fa fa-dashboard fa-fw"></i> Lid Verwijderen</a>
+                        </li>
+                        <li>
+                        	<a href="lidinfowijziging.html"><i class="fa fa-dashboard fa-fw"></i> Lidinformatie Wijzigen</a>
+                        </li>
+                        <li>
+                        	<a href="gemiddeldeinfo.html"><i class="fa fa-dashboard fa-fw"></i> Gemiddelden per Regio</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 </div>
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Titel</h1>
+                </div>
+                <select class="abo-left" id="selection" name="locatie">
+				</select>
+                <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+            </div>
+</div>
 
-<script> 
+  <div id="alert-div" class="alert alert-info alert-dismissable animated fadeInLeft hidden2">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">Ã—</a>
+    <label id="alert-label"></label>
+  </div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+    
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="metisMenu.min.js"></script>
+    <script src="raphael.min.js"></script>
+    <script src="morris.min.js"></script>
+    <script src="sb-admin-2.js"></script>
+<script>
 function loadLocaties(){
 	$.ajax({
         url: "restservices/locatie/all",
@@ -41,21 +109,46 @@ $("#selection").on("input", function() {
         url: "restservices/inschrijvingen/getInfo/"+this.value,
         method: "GET",
         success: function (data) {
-        	$("#abonnement").html("");
-        	$("#inkomsten").html("");
-        	$("#aantalabonnementen").html(data.aantalabonnementen);
-        	$.each(data.abonnementen , function (key,value){
-        		$("#abonnement").append("<label  class='abo-left heavy'>"+value.naam+"</label> <label class='abo-middle'>abonnees:		</label> <label class='abo-right heavy'>"+value.aantal+"</label> <br>");
-        	})
-        	$("#inkomsten").html("€"+data.inkomsten);
+        	options.series[0].setData(data);
 		}
     });
 	
 });
+Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Informatie'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'abonnementen',
+        colorByPoint : true,
+        data: []
+    }]
+});
 
-function goBack() {
-    window.history.back()
-}
+
 </script>
 </body>
+
 </html>

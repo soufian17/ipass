@@ -1,44 +1,94 @@
 <!DOCTYPE html>
-<html>
-<title>Klantbeheer</title>
+<html lang="en">
+
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="metisMenu.min.css" rel="stylesheet">
+    <link href="sb-admin-2.css" rel="stylesheet">
+    <link href="morris.css" rel="stylesheet">
+    <link href="miniboot.css" rel="stylesheet">    
+    
 </head>
 <body>
-<h1><i onclick="goBack()" class="fa fa-angle-double-left  fa-pull-right ic"></i> Klantbeheer </h1>
+    <div id="wrapper">
 
-<div class="table-title">
-<h3 id="overzicht">Overzicht Alle Klanten</h3>
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Klantbeheer</a>
+            </div>
+
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                       
+                        <li>
+                            <a href="adminpage.html"><i class="fa fa-dashboard fa-fw"></i> Admin</a>
+                        </li>
+                        <li>
+                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Homepage</a>
+                        </li>
+                        <li>
+                             <a href="overzichtalleleden.html"><i class="fa fa-dashboard fa-fw"></i> Overzicht Leden</a>
+                        </li>
+                        <li>
+                        	<a href="nieuwlid.html"><i class="fa fa-dashboard fa-fw"></i> Nieuw Lid Aanmelden</a>
+                        </li>
+                         <li>
+                        	<a href="klantinformatie.html"><i class="fa fa-dashboard fa-fw"></i> Lidinformatie </a>
+                        </li>
+                        <li>
+                        	<a href="lidverwijderen.html"><i class="fa fa-dashboard fa-fw"></i> Lid Verwijderen</a>
+                        </li>
+                        <li>
+                        	<a href="lidinfowijziging.html"><i class="fa fa-dashboard fa-fw"></i> Lidinformatie Wijzigen</a>
+                        </li>
+                        <li>
+                        	<a href="gemiddeldeinfo.html"><i class="fa fa-dashboard fa-fw"></i> Gemiddelden per Regio</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 </div>
-  <table  id="leden" class="table-fill">
-  </table>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Titel</h1>
+                </div>
+            </div>
+</div>
 
- 
- 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
- <script>
- 
- function loadLeden(){
-     $.ajax({
-         url: "restservices/inschrijvingen/all",
-         method: "GET",
-         success: function (data) {
-         	$("#leden").html("<tr class'tr'>	<th>ID</th> <th>Voornaam</th> <th>Achternaam</th> <th>Abonnement</th> <th>Locatie</th> </tr>");
-         	$.each(data.array,function(key,value){
-         		$('#leden > tbody:last-child').append('<tr id="'+value.id+'" > <td onclick=trgeklikt("'+value.id+'")>'+value.id+"</td> <td>"+value.voornaam+"</td> <td>"+value.achternaam+"</td> <td>"+value.abonnement+"</td><td>"+value.locatie+"</td> </tr>");
-         	})
-         	$("#overzicht").html("Overzicht Alle Klanten ("+data.aantal+")");
-			}
-     });
- };
- function goBack() {
-	    window.history.back()
-	}
- loadLeden();
- </script>
+  <div id="alert-div" class="alert alert-info alert-dismissable animated fadeInLeft hidden2">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <label id="alert-label"></label>
+  </div>
+
+    
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="metisMenu.min.js"></script>
+    <script src="raphael.min.js"></script>
+    <script src="morris.min.js"></script>
+    <script src="sb-admin-2.js"></script>
+<script>
+</script>
 </body>
+
 </html>
