@@ -174,10 +174,39 @@ $("#addA").click(function (){
 })
 $("#login").click(function(event) {
 	var data = $("#loginform").serialize();
-	$.post("restservices/authentication", data, function(response) {
-		window.sessionStorage.setItem("sessionToken", response);
-	})
-	});
+		 $.ajax(
+	    	uri, { 
+	        type: "post", 
+	        data: data, 
+	        success: function(response) {
+	    		window.sessionStorage.setItem("sessionToken", response);
+	            $("#alert-label").html("U bent ingelod, Welkom!");
+	            $("#alert-div").fadeIn("slow");
+	        	setTimeout(function() { 
+		        	$("#alert-div").fadeOut("slow");
+		        	$("#alert-div").hide(500);
+	        	}, 1100);
+	        },
+	        error: function(response) {
+	    		window.sessionStorage.setItem("sessionToken", response);
+	            $("#alert-label").html("Login mislukt!");
+	            $("#alert-div").fadeIn("slow");
+	        	setTimeout(function() { 
+		        	$("#alert-div").fadeOut("slow");
+		        	$("#alert-div").hide(500);
+	        	}, 1100);
+	        },
+	        fail: function(response) {
+	    		window.sessionStorage.setItem("sessionToken", response);
+	            $("#alert-label").html("Login mislukt!");
+	            $("#alert-div").fadeIn("slow");
+	        	setTimeout(function() { 
+		        	$("#alert-div").fadeOut("slow");
+		        	$("#alert-div").hide(500);
+	        	}, 1100);
+	        }
+	    }); 
+		});
 
 $("#addL").click(function (){
 	var data = $("#Locatie").serialize();
