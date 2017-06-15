@@ -96,7 +96,10 @@
 }
 .hidden2 {
 	position: fixed;
+	z-index:999999999999999999999;
+	margin-top:50px;
 	top: 0;
-	left: 0;
+	right: 0;
+	width:20%;
 	display: none;
 }
