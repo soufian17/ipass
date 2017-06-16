@@ -127,7 +127,7 @@ public class InschrijvingResource {
 		JsonArrayBuilder JAB2 = Json.createArrayBuilder();
 		
 		for (Abonnement ab : restabbo){
-			JAB.add(ab.getAbbonementnaam()+" - "+ab.getPrijs());
+			JAB.add(ab.getAbbonementnaam()+" - "+"€ "+ab.getPrijs());
 		}
 		for (Locatie lo : restloc){
 			JsonObjectBuilder JOBv1 = Json.createObjectBuilder();

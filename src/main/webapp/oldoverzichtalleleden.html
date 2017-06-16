@@ -29,7 +29,7 @@
          success: function (data) {
          	$("#leden").html("<tr class'tr'>	<th>ID</th> <th>Voornaam</th> <th>Achternaam</th> <th>Abonnement</th> <th>Locatie</th> </tr>");
          	$.each(data.array,function(key,value){
-         		$('#leden > tbody:last-child').append('<tr id="'+value.id+'" > <td onclick=trgeklikt("'+value.id+'")>'+value.id+"</td> <td>"+value.voornaam+"</td> <td>"+value.achternaam+"</td> <td>"+value.abonnement+"</td><td>"+value.locatie+"</td> </tr>");
+         		$('#leden > tbody:last-child').append('<tr id="'+value.id+'" > <td >'+value.id+"</td> <td>"+value.voornaam+"</td> <td>"+value.achternaam+"</td> <td>"+value.abonnement+"</td><td>"+value.locatie+"</td> </tr>");
          	})
          	$("#overzicht").html("Overzicht Alle Klanten ("+data.aantal+")");
 			}

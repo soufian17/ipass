@@ -103,3 +103,9 @@
 	width:20%;
 	display: none;
 }
+.over{
+	overflow: auto;
+}
+.ctable-click{
+	cursor: pointer;
+}

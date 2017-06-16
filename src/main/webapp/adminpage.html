@@ -159,7 +159,7 @@ $("#addA").click(function (){
         	setTimeout(function() { 
 	        	$("#alert-div").fadeOut("slow");
 	        	$("#alert-div").hide(500);
-        	}, 1100);
+        	}, 3000);
         },
         error: function(response) {
             $("#alert-label").html("Niet gelukt");
@@ -167,7 +167,7 @@ $("#addA").click(function (){
         	setTimeout(function() { 
 	        	$("#alert-div").fadeOut("slow");
 	        	$("#alert-div").hide(500);
-        	}, 1100);
+        	}, 3000);
         }
     }); 
 	
@@ -186,7 +186,7 @@ $("#login").click(function(event) {
 	        	setTimeout(function() { 
 		        	$("#alert-div").fadeOut("slow");
 		        	$("#alert-div").hide(500);
-	        	}, 1100);
+	        	}, 3000);
 	        },
 	        error: function(response) {
 	    		window.sessionStorage.setItem("sessionToken", response);
@@ -195,7 +195,7 @@ $("#login").click(function(event) {
 	        	setTimeout(function() { 
 		        	$("#alert-div").fadeOut("slow");
 		        	$("#alert-div").hide(500);
-	        	}, 1100);
+	        	}, 3000);
 	        },
 	        fail: function(response) {
 	    		window.sessionStorage.setItem("sessionToken", response);
@@ -204,7 +204,7 @@ $("#login").click(function(event) {
 	        	setTimeout(function() { 
 		        	$("#alert-div").fadeOut("slow");
 		        	$("#alert-div").hide(500);
-	        	}, 1100);
+	        	}, 3000);
 	        }
 	    }); 
 		});
@@ -227,7 +227,7 @@ $("#addL").click(function (){
 	        	setTimeout(function() { 
 		        	$("#alert-div").fadeOut("slow");
 		        	$("#alert-div").hide(500);
-	        	}, 1100);
+	        	}, 3000);
 	        },
 	        error: function(response) {
 	            $("#alert-label").html("Niet gelukt!");
@@ -235,7 +235,7 @@ $("#addL").click(function (){
 	        	setTimeout(function() { 
 		        	$("#alert-div").fadeOut("slow");
 		        	$("#alert-div").hide(500);
-	        	}, 1100);
+	        	}, 3000);
 	        }
 	    }); 
     }else{
@@ -244,7 +244,7 @@ $("#addL").click(function (){
     	setTimeout(function() { 
         	$("#alert-div").fadeOut("slow");
         	$("#alert-div").hide(500);
-    	}, 1100);
+    	}, 3000);
     }
 })
 </script>

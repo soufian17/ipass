@@ -39,7 +39,7 @@ public class AbonnementResource {
 	@Path("add")
 	@POST
 	@RolesAllowed("admin")
-	public String addLocatie(
+	public String addAbonnement(
 			@FormParam("naam")String naam,
 			@FormParam("prijs")double prijs
 			){

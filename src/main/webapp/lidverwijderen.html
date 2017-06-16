@@ -11,6 +11,7 @@
 
     <title>Admin</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="bootstrap.min.css" rel="stylesheet">
     <link href="metisMenu.min.css" rel="stylesheet">
     <link href="sb-admin-2.css" rel="stylesheet">
@@ -70,11 +71,45 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Titel</h1>
+                    <h1 class="page-header">Overzicht alle leden</h1>
                 </div>
+                <div class="row">
+	           	<div class="col-lg-8">
+	           	<div class="panel panel-default">
+	           	<div class="panel-heading"></div>
+	           	  <div class="panel-body">
+	              <h2>Klanten</h2>
+	  				<p>Alle klanten <label id="overzicht"></label>:  </p>            
+	  				<table class="table">
+	    				<thead> <tr> <th>ID</th> <th>Voornaam</th> <th>Achternaam</th> <th>Abonnement</th> <th>Woonplaats</th> <th>Verwijderen</th> </tr> </thead>
+	   					<tbody id="tbody"> </tbody>
+	  				</table>
+	  				</div>
+	  			</div>
+				</div>
+				</div>
             </div>
 </div>
-
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Verwijder alert</h4>
+        </div>
+        <div class="modal-body">
+          <p id="modal-info"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancelVerwijdering" class="btn-default" 	  data-dismiss="modal">Close</button>
+          <button type="button" id="verwijderDef" 		class="btn-danger btn-ok" data-dismiss="modal" >Verwijder lid</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
   <div id="alert-div" class="alert alert-info alert-dismissable animated fadeInLeft hidden2">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
     <label id="alert-label"></label>
@@ -88,6 +123,46 @@
     <script src="morris.min.js"></script>
     <script src="sb-admin-2.js"></script>
 <script>
+function loadLeden(){
+    $.ajax({
+        url: "restservices/inschrijvingen/all",
+        method: "GET",
+        success: function (data) {
+        	$("#tbody").html("");
+        	$.each(data.array,function(key,value){
+        		$('#tbody').append('<tr id="'+value.id+'" > <td >'+value.id+"</td> <td>"+value.voornaam+"</td> <td>"+value.achternaam+"</td> <td>"+value.abonnement+"</td><td>"+value.locatie+'</td><td ><i onclick=verwijderLid("'+value.id+'"'+") class='fa fa-remove' style='font-size:48px;color:red'></i></td>  </tr>");
+        	})
+        	$("#overzicht").html("("+data.aantal+")");
+			}
+    });
+};
+loadLeden();
+function verwijderLid(verwijderId){
+	 VerwijderId = verwijderId;
+	 $("#modal-info").html("je staat op het punt om lid met ID: '"+verwijderId+"' te verwijderen, Weet je het zeker?")
+	 $("#myModal").modal();
+};
+
+$("#verwijderDef").click( function (){
+	verwijderDef(VerwijderId);
+});
+$("#cancelVerwijdering").click(function (){
+	VerwijderId = 'undefined';
+})
+function verwijderDef(verwijderID){
+	$.ajax({
+    url: "restservices/inschrijvingen/verwijder/"+verwijderID,
+    method: "DELETE",
+    success: function (data) {
+		$("#"+verwijderID).fadeTo(500, 0.2);
+		$("#"+verwijderID).hide(500);
+   	setTimeout(function() { 
+   		$("#alert-label").html("Lid met ID: '"+VerwijderId+"' is verwijderd");
+   		$("#alert-div").show();
+   		}, 1100);
+		}
+})
+};
 </script>
 </body>
 
