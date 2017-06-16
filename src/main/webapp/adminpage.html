@@ -147,6 +147,7 @@ $("#try").click(function (){
 $("#addA").click(function (){
 	var data = $("#Abonnement").serialize();
 	var uri = "/restservices/abonnement/add";
+	if($("#naam").val()!==""){
     $.ajax(
     	uri, { 
         type: "post", 
@@ -172,7 +173,14 @@ $("#addA").click(function (){
         	}, 3000);
         }
     }); 
-	
+	}else{
+		$("#alert-label").html("Waarde is niet geldig!");
+        $("#alert-div").fadeIn("slow");
+    	setTimeout(function() { 
+        	$("#alert-div").fadeOut("slow");
+        	$("#alert-div").hide(500);
+    	}, 3000);
+	}
 })
 $("#login").click(function(event) {
 	var uri = "restservices/authentication";
