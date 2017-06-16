@@ -43,25 +43,25 @@
                             <a href="adminpage.html"><i class="fa fa-dashboard fa-fw"></i> Admin</a>
                         </li>
                         <li>
-                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Homepage</a>
+                             <a href="index.html"><i class="fa fa-home fa-fw"></i> Homepage</a>
                         </li>
                         <li>
-                             <a href="overzichtalleleden.html"><i class="fa fa-dashboard fa-fw"></i> Overzicht Leden</a>
+                             <a href="overzichtalleleden.html"><i class="fa fa-address-book-o fa-fw"></i> Overzicht Leden</a>
                         </li>
                         <li>
-                        	<a href="nieuwlid.html"><i class="fa fa-dashboard fa-fw"></i> Nieuw Lid Aanmelden</a>
+                        	<a href="nieuwlid.html"><i class="fa fa-group fa-fw"></i> Nieuw Lid Aanmelden</a>
                         </li>
                          <li>
-                        	<a href="klantinformatie.html"><i class="fa fa-dashboard fa-fw"></i> Lidinformatie </a>
+                        	<a href="klantinformatie.html"><i class="fa fa-info fa-fw"></i> Lidinformatie </a>
                         </li>
                         <li>
-                        	<a href="lidverwijderen.html"><i class="fa fa-dashboard fa-fw"></i> Lid Verwijderen</a>
+                        	<a href="lidverwijderen.html"><i class="fa fa-remove fa-fw"></i> Lid Verwijderen</a>
                         </li>
                         <li>
-                        	<a href="lidinfowijziging.html"><i class="fa fa-dashboard fa-fw"></i> Lidinformatie Wijzigen</a>
+                        	<a href="lidinfowijziging.html"><i class="fa fa-edit fa-fw"></i> Lidinformatie Wijzigen</a>
                         </li>
                         <li>
-                        	<a href="gemiddeldeinfo.html"><i class="fa fa-dashboard fa-fw"></i> Gemiddelden per Regio</a>
+                        	<a href="gemiddeldeinfo.html"><i class="fa fa-percent fa-fw"></i> Gemiddelden per Regio</a>
                         </li>
                     </ul>
                 </div>
@@ -130,11 +130,11 @@ function loadLeden(){
         success: function (data) {
         	$("#tbody").html("");
         	$.each(data.array,function(key,value){
-        		$('#tbody').append('<tr id="'+value.id+'" > <td >'+value.id+"</td> <td>"+value.voornaam+"</td> <td>"+value.achternaam+"</td> <td>"+value.abonnement+"</td><td>"+value.locatie+'</td><td ><i onclick=verwijderLid("'+value.id+'"'+") class='fa fa-remove' style='font-size:48px;color:red'></i></td>  </tr>");
+        		$('#tbody').append('<tr id="'+value.id+'" > <td >'+value.id+"</td> <td>"+value.voornaam+"</td> <td>"+value.achternaam+"</td> <td>"+value.abonnement+"</td><td>"+value.locatie+'</td><td ><i onclick=verwijderLid("'+value.id+'"'+") class=' ctable-click fa fa-remove' style='font-size:48px;color:red'></i></td>  </tr>");
         	})
         	$("#overzicht").html("("+data.aantal+")");
 			}
-    });
+    })
 };
 loadLeden();
 function verwijderLid(verwijderId){
@@ -157,12 +157,12 @@ function verwijderDef(verwijderID){
 		$("#"+verwijderID).fadeTo(500, 0.2);
 		$("#"+verwijderID).hide(500);
    	setTimeout(function() { 
-   		$("#alert-label").html("Lid met ID: '"+VerwijderId+"' is verwijderd");
-   		$("#alert-div").show();
-   		}, 1100);
-		}
+        $("#alert-label").html("Lid met ID: '"+VerwijderId+"' is verwijderd");
+        $("#alert-div").fadeIn("slow");
 })
-};
+}
+	})
+}
 </script>
 </body>
 
