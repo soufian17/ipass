@@ -76,7 +76,6 @@
                 <div class="row">
 	           	<div class="col-lg-8">
 	           	<div class="panel panel-default">
-	           	<div class="panel-heading"></div>
 	           	  <div class="panel-body">
 	              <h2>Klanten</h2>
 	  				<p>Alle klanten <label id="overzicht"></label>:  </p>            
@@ -111,7 +110,6 @@
     </div>
   </div>
   <div id="alert-div" class="alert alert-info alert-dismissable animated fadeInLeft hidden2">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
     <label id="alert-label"></label>
   </div>
 
@@ -157,10 +155,14 @@ function verwijderDef(verwijderID){
 		$("#"+verwijderID).fadeTo(500, 0.2);
 		$("#"+verwijderID).hide(500);
    	setTimeout(function() { 
-        $("#alert-label").html("Lid met ID: '"+VerwijderId+"' is verwijderd");
-        $("#alert-div").fadeIn("slow");
-})
-}
+		$("#alert-label").html("Lid met ID: '"+VerwijderId+"' is verwijderd");
+		$("#alert-div").fadeIn("slow");
+    	setTimeout(function() { 
+        	$("#alert-div").fadeOut("slow");
+        	$("#alert-div").hide(500);
+    	}, 3000);
+    })
+    }
 	})
 }
 </script>
